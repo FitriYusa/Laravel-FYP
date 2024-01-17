@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobseekersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+}); 
+
+Route::get('/landing', [JobseekersController::class, 'landingpage']);
+Route::get('/academy', [JobseekersController::class, 'academypage']);
+Route::get('/findjob', [JobseekersController::class, 'findjobpage']);
+Route::get('/profile', [JobseekersController::class, 'profilepage']);
 
 require __DIR__.'/auth.php';
