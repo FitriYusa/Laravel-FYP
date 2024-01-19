@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobseekersController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,10 @@ Route::get('/landing', [JobseekersController::class, 'landingpage']);
 Route::get('/academy', [JobseekersController::class, 'academypage']);
 Route::get('/findjob', [JobseekersController::class, 'findjobpage']);
 Route::get('/profile', [JobseekersController::class, 'profilepage']);
+
+Route::get('company/dashboard', [CompanyController::class, 'companydashboard']);
+Route::get('company/profile', [CompanyController::class, 'companyprofile']);
+Route::get('company/listing', [CompanyController::class, 'companylisting']);
+Route::get('company/applicant', [CompanyController::class, 'companyapplicant']);
 
 require __DIR__.'/auth.php';
