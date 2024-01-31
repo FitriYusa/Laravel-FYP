@@ -1,9 +1,11 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +14,35 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        //create admin user
+        User::create([
+            'name' => 'Admin',
+            'email' =>'admin@example.com',
+            'password' => Hash::make('12345678'),
+            'user_type' => 'admin',
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        //create company user
+        User::create([
+            'name' => 'Company',
+            'email' =>'company@example.com',
+            'password' => Hash::make('12345678'),
+            'user_type' => 'company',
+        ]);
+
+        User::create([
+            'name' => 'Company',
+            'email' =>'example@company.com',
+            'password' => Hash::make('12345678'),
+            'user_type' => 'company',
+        ]);
+
+        //create jobseekers user
+        User::create([
+            'name' => 'Jobseekers',
+            'email' =>'jobseekers@example.com',
+            'password' => Hash::make('12345678'),
+            'user_type' => 'jobseekers',
+        ]);
     }
 }
