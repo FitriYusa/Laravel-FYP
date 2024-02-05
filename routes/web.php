@@ -18,8 +18,8 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-    //return view('admin.index');
+    //return view('welcome');
+    return view('jobseekers.landingpage');
     //Route::get('/', [AdminController::class, 'index']);
 
 });
@@ -46,10 +46,10 @@ Route::prefix('jobseekers')->group(function () {
 
 //Company routes
 Route::prefix('company')->group(function () {
-Route::get('dashboard', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
-Route::get('profile', [CompanyController::class, 'companyprofile']);
-Route::get('listing', [CompanyController::class, 'companylisting']);
-Route::get('applicant', [CompanyController::class, 'companyapplicant']);
+    Route::get('dashboard', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
+    Route::get('profile', [CompanyController::class, 'companyprofile']);
+    Route::get('listing', [CompanyController::class, 'companylisting']);
+    Route::get('applicant', [CompanyController::class, 'companyapplicant']);
 });
 
 
