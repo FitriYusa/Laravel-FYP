@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use App\Models\User;
+use App\Models\jobseekersProfile;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -30,13 +31,6 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'company',
         ]);
 
-        User::create([
-            'name' => 'Company',
-            'email' =>'example@company.com',
-            'password' => Hash::make('12345678'),
-            'user_type' => 'company',
-        ]);
-
         //create jobseekers user
         User::create([
             'name' => 'Jobseekers',
@@ -45,4 +39,5 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'jobseekers',
         ]);
     }
+
 }

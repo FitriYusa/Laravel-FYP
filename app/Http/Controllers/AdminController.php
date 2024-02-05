@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
-use App\Models\Company;
-use App\Models\Jobseekers;
 use App\Models\User;
+use App\Models\jobList;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -15,13 +14,24 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::all();
+        $admins = User::where('user_type', 'admin')->get();
+
         $jobseekers = User::where('user_type', 'jobseekers')->get();
+
         $companies = User::where('user_type', 'company')->get();
-        return view('admin.index', compact('admins','jobseekers','companies'));
+
+        $jobseekersCount = User::where('user_type', 'jobseekers')->count();
+
+        $companiesCount = User::where('user_type', 'company')->count();
+
+        $jobList = jobList::count(); 
+
+        return view('admin.index', compact('admins', 'jobseekers', 'companies', 'jobseekersCount', 'companiesCount','jobList'));
 
     }
 
+
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -69,5 +79,29 @@ class AdminController extends Controller
     {
         //
     }
-    
+
+    public function company()
+    {   
+        $admins = User::where('user_type', 'admin')->get();
+        $jobseekers = User::where('user_type', 'jobseekers')->get();
+        $companies = User::where('user_type', 'company')->get();
+        return view('admin.company', compact('admins','jobseekers','companies'));
+    }
+
+    public function academy()
+    {
+        $admins = User::where('user_type', 'admin')->get();
+        $jobseekers = User::where('user_type', 'jobseekers')->get();
+        $companies = User::where('user_type', 'company')->get();
+        return view('admin.academy', compact('admins','jobseekers','companies'));
+    }
+
+    public function message()
+    {
+        $admins = User::where('user_type', 'admin')->get();
+        $jobseekers = User::where('user_type', 'jobseekers')->get();
+        $companies = User::where('user_type', 'company')->get();
+        return view('admin.message', compact('admins','jobseekers','companies'));
+    }
+
 }
