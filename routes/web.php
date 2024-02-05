@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobseekersController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,12 @@ use App\Http\Controllers\CompanyController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('jobseekers.landingpage');
+    //Route::get('/', [AdminController::class, 'index']);
+
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,14 +35,32 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 }); 
 
-Route::get('/landing', [JobseekersController::class, 'landingpage']);
-Route::get('/academy', [JobseekersController::class, 'academypage']);
-Route::get('/findjob', [JobseekersController::class, 'findjobpage']);
-Route::get('/profile', [JobseekersController::class, 'profilepage']);
 
-Route::get('company/dashboard', [CompanyController::class, 'companydashboard']);
-Route::get('company/profile', [CompanyController::class, 'companyprofile']);
-Route::get('company/listing', [CompanyController::class, 'companylisting']);
-Route::get('company/applicant', [CompanyController::class, 'companyapplicant']);
+// Jobseekers routes
+Route::prefix('jobseekers')->group(function () {
+    Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
+    Route::get('/academy', [JobseekersController::class, 'academypage']);
+    Route::get('/findjob', [JobseekersController::class, 'findjobpage']);
+    Route::get('/profile', [JobseekersController::class, 'profilepage']);
+});
+
+//Company routes
+Route::prefix('company')->group(function () {
+    Route::get('dashboard', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
+    Route::get('profile', [CompanyController::class, 'companyprofile']);
+    Route::get('listing', [CompanyController::class, 'companylisting']);
+    Route::get('applicant', [CompanyController::class, 'companyapplicant']);
+});
+
+
+//Admin route
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/company', [AdminController::class, 'company'])->name('admin.company');
+    Route::get('/academy', [AdminController::class, 'academy'])->name('admin.academy');
+    Route::get('/message', [AdminController::class, 'message'])->name('admin.message');
+
+});
+
 
 require __DIR__.'/auth.php';

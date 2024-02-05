@@ -36,16 +36,31 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $user_type = $request->has('user_type') && $request->user_type === 'company' ? 'company' : 'jobseekers';
+
+        //$user_type = $request->filled('user_type') ? $request->user_type : 'jobseeker';
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'user_type' =>$user_type,
         ]);
+
+        if ($user_type === 'company'){
+            return redirect()->route('company.dashboard');
+        }else if ($user_type === 'admin'){
+            return redirect()->route('admin.dashboard');
+        }else{
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
 
         event(new Registered($user));
 
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+
+        
     }
 }

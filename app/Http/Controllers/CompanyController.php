@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
+    
     public function companydashboard() {
         return view('company/dashboard');
     }
@@ -21,4 +23,5 @@ class CompanyController extends Controller
     public function companyapplicant() {
         return view('company/applicant');
     }
+
 }

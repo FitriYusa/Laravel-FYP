@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jobseekers;
 use Illuminate\Http\Request;
 
 class JobseekersController extends Controller
@@ -21,4 +22,5 @@ class JobseekersController extends Controller
     public function profilepage() {
         return view('jobseekers/profile');
     }
+
 }
