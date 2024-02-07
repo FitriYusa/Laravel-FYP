@@ -48,7 +48,7 @@
                 <i class=""></i>
                 <span>Academy</span>
             </a>
-            <a class="nav-link" href="message">
+            <a class="nav-link" href="{{ route('chat') }}">
                 <i class=""></i>
                 <span>Message</span>
             </a>

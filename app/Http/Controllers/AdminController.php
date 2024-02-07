@@ -96,12 +96,12 @@ class AdminController extends Controller
         return view('admin.academy', compact('admins','jobseekers','companies'));
     }
 
-    public function message()
-    {
-        $admins = User::where('user_type', 'admin')->get();
-        $jobseekers = User::where('user_type', 'jobseekers')->get();
-        $companies = User::where('user_type', 'company')->get();
-        return view('admin.message', compact('admins','jobseekers','companies'));
-    }
+      public function message()
+      {
+          $admins = User::where('user_type', 'admin')->get();
+          $jobseekers = User::where('user_type', 'jobseekers')->get();
+          $companies = User::where('user_type', 'company')->get();
+          return view('admin.message', compact('admins','jobseekers','companies'));
+      }
 
 }
