@@ -22,35 +22,52 @@
     </style>
     
     <style>
-        html, body{
-            background-color: #ffff;
-            font-weight: 200;
-            height: 100vh;
+        *{
             margin: 0;
-        }
+            padding: 0;
+         }
 
-        .leading-text{
-            font-size: 30px;
+        body{
+            min-height: 100vh;
             font-family: "Nunito";
-            color: #8080D7;
         }
 
-        .list{
-            font-size: 20px;
-            font-family: "Nunito";
-            color: #8080D7;
+        .navbar{
+            box-shadow: 0px 0px 5px;
         }
 
-        .list:hover{
-            font-size: 20px;
-            font-family: "Nunito";
-            color: #9898ff;
+        .navbar ul{
+            width: 100%;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
 
-        .center{
-            background: #ebebeb;
-            padding: 10px;
-            text-align: center;
+        .navbar a{
+            height: 100%;
+            padding: 0 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: black;
+        }
+
+
+        .navbar li{
+            height: 70px;
+        }
+
+        .navbar li:not(:first-child){
+            color: black;
+        }
+        .navbar li:not(:first-child):hover{
+            background-color: #8080D7;
+        }
+
+        .navbar li:first-child{
+            margin-right: auto;
+            font-weight: bold;
         }
     </style>
 </head>
