@@ -58,16 +58,90 @@
             height: 70px;
         }
 
-        .navbar li:not(:first-child){
-            color: black;
-        }
+        /* .navbar li:not(:first-child){
+            color: white;
+        } */
+
         .navbar li:not(:first-child):hover{
             background-color: #8080D7;
+            color: white;
         }
 
         .navbar li:first-child{
             margin-right: auto;
             font-weight: bold;
+        }
+
+        .header {
+            background: linear-gradient(to bottom, #4e4e79, #8080D7); /* Dark to light purple gradient */
+            color: #000000; /* Black text color */
+            text-align: left;
+            padding: 50px;
+        }
+
+        .header h1 {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #ffffff; /* White color for the highlighted text */
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .search-container {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to bottom, #800080, #C71585); /* Dark to light purple gradient */
+        }
+
+        .search-inputs {
+            display: flex;
+            /* justify-content: space-between; */
+            /* align-items: center; */
+            max-width: 800px; /* Adjust the maximum width as needed */
+            /* margin: 0 auto; /* Center the search inputs horizontally */
+        }
+
+        .job-input, .location-input {
+            flex: 1; /* Distribute available space equally between the inputs */
+            padding: 10px;
+            margin-right: 10px; /* Adjusted margin between inputs */
+            border: 1px solid #ccc;
+            border-radius: 10px; /* Rounded edges */
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: white;
+            color: black; /* White text color */
+            border: 1.5px solid #000000; /* Black border */
+            border-radius: 10px; /* Rounded edges */
+            cursor: pointer;
+            margin-right: 10px;
+            transition: 
+                transform 0.15s ease-out,
+                color 0.15s ease-out,
+                background-color 0.15s ease-out;
+        }
+
+        .search-button:hover {
+            transform: translate(5px, 5px);
+            color: white;
+            background: #3b3b7a;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 75px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            color: #8080D7; /* Purple color */
+            font-size: 60px;
         }
     </style>
 </head>

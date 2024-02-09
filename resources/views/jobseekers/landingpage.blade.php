@@ -27,6 +27,20 @@
                 </ul>
             </nav>
 
+            <div class="header">
+                <h1>Discover<br>more than<br><span class="highlight">500+ jobs</span></h1>
+                <br>
+                <br>
+                <p style="margin-bottom: 50px;">Great platform for job seekers that are searching for<br>new career heights and passionate about startups.</p>
+                <div class="search-inputs">
+                    <a href="{{ url('/jobseekers/findjob') }}" class="search-button">Search Jobs</a></li>
+                    <a href="{{ url('/jobseekers/academy') }}" class="search-button">Academy</a></li>
+                </div>
+            </div>
+
+            <div class="footer">
+                FLEXWAVES
+            </div>
+
         @endsection
-    </div>
 </body>
