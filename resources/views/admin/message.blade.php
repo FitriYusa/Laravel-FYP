@@ -17,6 +17,8 @@
 
   <!-- Custom styles for table -->
   <link href="{{ asset('admin_assets/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/6d016c170f.js" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">

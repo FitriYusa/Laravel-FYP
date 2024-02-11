@@ -23,12 +23,12 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+            <div class="sidebar-brand-icon">
+                <i class="fa-solid fa-people-roof"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">
-                Admin
-            </div>
+            {{-- <div class="sidebar-brand-text mx-3">
+                Company
+            </div> --}}
         </a>
 
         <!-- Divider -->
@@ -40,27 +40,16 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
-            <hr class="sidebar-divider d-none d-md-block">
-            <a class="nav-link" href="company">
-                <i class="fas fa-address-book"></i>
-                <span>Company</span>
+            <hr class="sidebar-divider">
+            <a class="nav-link" href="joblist">
+                <i class="fa-solid fa-list"></i>
+                <span>Job list</span>
             </a>
             <hr class="sidebar-divider">
-            <a class="nav-link" href="jobList">
-                <i class="fa-solid fa-school"></i>
-                <span>Job List</span>
+            <a class="nav-link" href="">
+                <i class="fa-solid fa-user-astronaut"></i>
+                <span>Applicants</span>
             </a>
-            <hr class="sidebar-divider">
-            <a class="nav-link" href="academy">
-                <i class="fa-solid fa-school"></i>
-                <span>Academy</span>
-            </a>
-            <hr class="sidebar-divider">
-            <a class="nav-link" href="message">
-                <i class="fas fa-comments"></i>
-                <span>Message</span>
-            </a>
-            <hr class="sidebar-divider">
         </li>
 
 
