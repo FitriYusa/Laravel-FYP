@@ -26,10 +26,40 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $request->user()->id,
+            'age' => 'required|integer',
+            'location' => 'sometimes|string|max:255',
+            'gender' => 'required|in:Male,Female,Other',
+            'language' => 'nullable|string', // Adjust based on how you store languages; use 'array' if multiple selections are stored as an array
+            'user_status' => 'required',
+            'user_profile' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = $request->user();
+        $user->fill($validatedData);
+
+        //$request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
+        }
+
+        if ($request->hasFile('user_profile')) {
+            $uploadedFile = $request->file('user_profile');
+
+            // Delete the old profile picture if it exists
+            if ($user->user_profile) {
+                $oldProfilePicturePath = public_path($user->user_profile);
+                if (file_exists($oldProfilePicturePath)) {
+                    unlink($oldProfilePicturePath);
+                }
+            }
+
+            // Upload the new profile picture
+            $profilePicturePath = $uploadedFile->store('user_profile', 'public');
+            $user->user_profile = '/storage/' . $profilePicturePath;
         }
 
         $request->user()->save();

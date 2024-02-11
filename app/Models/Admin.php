@@ -13,5 +13,10 @@ class Admin extends Model
         'password',
         'user_type'
     ];
+
+    public function academy()
+    {
+        return $this->hasMany(Academy::class);
+    }
 }
 
