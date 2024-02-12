@@ -11,8 +11,6 @@
 
                     @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/jobseekers/findjob') }}">Find Jobs</a></li>
-                        <li><a href="{{ url('/jobseekers/academy') }}">Academy</a></li>
                         <li><a href="{{ url('/jobseekers/profile') }}">Profile</a></li>
                         <li><a href="{{ url('chat') }}">Message</a></li>
                         <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
@@ -28,7 +26,7 @@
             </nav>
 
             <div class="header">
-                <h1>Discover<br>more than<br><span class="highlight">500+ jobs</span></h1>
+                <h1>Find Your Dream Job Today:<br>Explore Opportunities on<br><span class="highlight">Flexwaves</span></h1>
                 <br>
                 <br>
                 <p style="margin-bottom: 50px;">Great platform for job seekers that are searching for<br>new career heights and passionate about startups.</p>
