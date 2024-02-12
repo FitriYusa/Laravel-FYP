@@ -22,36 +22,212 @@
     </style>
     
     <style>
-        html, body{
-            background-color: #ffff;
-            font-weight: 200;
-            height: 100vh;
+        *{
             margin: 0;
-        }
+            padding: 0;
+         }
 
-        .leading-text{
-            font-size: 30px;
+        body{
+            min-height: 100vh;
             font-family: "Nunito";
-            color: #8080D7;
         }
 
-        .list{
-            font-size: 20px;
-            font-family: "Nunito";
-            color: #8080D7;
+        /* NAVBAR CSS */
+
+        .navbar{
+            box-shadow: 0px 0px 5px;
         }
 
-        .list:hover{
-            font-size: 20px;
-            font-family: "Nunito";
-            color: #9898ff;
+        .navbar ul{
+            width: 100%;
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
 
-        .center{
-            background: #ebebeb;
-            padding: 10px;
+        .navbar a{
+            height: 100%;
+            padding: 0 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            color: black;
+        }
+
+
+        .navbar li{
+            height: 70px;
+        }
+
+        /* .navbar li:not(:first-child){
+            color: white;
+        } */
+
+        .navbar li:not(:first-child):hover{
+            background-color: #8080D7;
+            color: white;
+        }
+
+        .navbar li:first-child{
+            margin-right: auto;
+            font-weight: bold;
+        }
+
+        /* END-NAVBAR CSS */
+
+        /* LANDING PAGE CSS */
+
+        /* .header {
+            background: linear-gradient(to bottom, #05c8d6, #8080D7); 
+            color: #000000; 
+            text-align: left;
+            padding: 50px;
+        } */
+
+        .header h1 {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #ffffff; /* White color for the highlighted text */
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .search-container {
             text-align: center;
+            padding: 20px;
+            background: linear-gradient(to bottom, #800080, #C71585); /* Dark to light purple gradient */
         }
+
+        .search-inputs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            max-width: 250px; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the search inputs horizontally */
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: white;
+            color: black; /* White text color */
+            border: 2px solid #6d6dce; /* Black border */
+            border-radius: 10px; /* Rounded edges */
+            cursor: pointer;
+            transition: 
+                transform 0.15s ease-out,
+                color 0.15s ease-out,
+                background-color 0.15s ease-out;
+        }
+
+        .search-button:hover {
+            transform: translate(5px, 5px);
+            color: white;
+            background: #6d6dce;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 75px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            color: #8080D7; /* Purple color */
+            font-size: 60px;
+        }
+
+        /* END-LANDING PAGE CSS */
+
+        /* ACADEMY PAGE CSS */
+
+        .header {
+            background: linear-gradient(to bottom, #05c8d6, #8080D7); /* Dark to light purple gradient */
+            color: #000000; /* Black text color */
+            text-align: center;
+            padding: 50px;
+        }
+
+        .header h1 {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #ffffff; /* White color for the highlighted text */
+        }
+
+        .header p {
+            font-size: 18px;
+        }
+
+        .search-inputs-academy {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            max-width: 800px; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the search inputs horizontally */
+        }
+
+        .job-input, .location-input {
+            flex: 1; /* Distribute available space equally between the inputs */
+            padding: 10px;
+            margin-right: 10px; /* Adjusted margin between inputs */
+            border: 1px solid #ccc;
+            border-radius: 10px; /* Rounded edges */
+        }
+
+        /* .search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0495b900; 
+            color: #ffffff; 
+            border: 2px solid #ffffff; 
+            border-radius: 10px; 
+            cursor: pointer;
+        } */
+
+        /* .search-button2 {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #0495b9; 
+                color: #ffffff; 
+                border: 2px solid #0495b9; 
+                border-radius: 10px; 
+                cursor: pointer;
+                margin-right: 270px;
+        } */
+            
+        .company-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                padding: 50px;
+                background-color: #ffffff; /* Background color for the container */
+            }
+            
+        .company-box {
+                text-align: center;
+                border: 2px solid #00000069; /* Border color */
+                border-radius: 10px; /* Rounded corners */
+                padding: 20px; /* Padding inside the box */
+                
+                margin: 10px; /* Margin between boxes */
+        }
+            
+        .company-box img {
+                width: 100px; /* Adjust the size of the company logos */
+                height: auto;
+                margin-bottom: 20px;    
+        }
+
+        /* END-ACADEMY PAGE CSS */
+
     </style>
 </head>
 <body>

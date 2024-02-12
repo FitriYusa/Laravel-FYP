@@ -58,6 +58,7 @@
             <hr class="sidebar-divider">
             <a class="nav-link" href="message">
                 <i class="fas fa-comments"></i>
+                
                 <span>Message</span>
             </a>
             <hr class="sidebar-divider">

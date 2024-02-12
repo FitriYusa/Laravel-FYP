@@ -21,7 +21,6 @@ Route::get('/', function () {
     //return view('welcome');
     return view('jobseekers.landingpage');
     //Route::get('/', [AdminController::class, 'index']);
-
 });
 
 
@@ -37,6 +36,7 @@ Route::get('/', function () {
 
 
 // Jobseekers routes
+=======
 Route::middleware('auth')->group(function () {
     //Dashboard
     Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 //Company routes
 Route::middleware(['auth', 'company'])->group(function () {
@@ -77,6 +78,7 @@ Route::middleware(['auth', 'company'])->group(function () {
 });
 
 //Admin route
+=======
 Route::middleware(['auth', 'admin'])->group(function () {
     //Dashboard
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -102,6 +104,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+=======
 //Route::match(['get', 'put'], '/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
+
 
 require __DIR__.'/auth.php';

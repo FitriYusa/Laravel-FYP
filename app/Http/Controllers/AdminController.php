@@ -137,7 +137,8 @@ class AdminController extends Controller
     {
         return view('admin.create_academy');
     }
-
+  
+=======
     public function storeAcademy(Request $request )
     {
         $startDate = $request->input('start_date');
@@ -163,6 +164,7 @@ class AdminController extends Controller
              'is_active' => 'required|boolean',
         //     //'image' => 'nullable|file|image|mimes:jpeg,png|max:2048',
         ]);
+
 
         // // if ($request->hasFile('image')) {
         // //     $image = $request->file('image');
