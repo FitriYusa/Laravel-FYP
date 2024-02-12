@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\jobList;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -16,7 +17,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = Auth::user();
 
         $jobseekers = User::where('user_type', 'jobseekers')->get();
 
@@ -34,7 +35,7 @@ class AdminController extends Controller
 
     public function company()
     {   
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = Auth::user();
         $jobseekers = User::where('user_type', 'jobseekers')->get();
         $companies = User::where('user_type', 'company')->get();
         return view('admin.company', compact('admins','jobseekers','companies'));
@@ -42,7 +43,7 @@ class AdminController extends Controller
 
     public function joblist()
     {   
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = Auth::user();
         $jobseekers = User::where('user_type', 'jobseekers')->get();
         $companies = User::where('user_type', 'company')->get();
 
@@ -53,7 +54,7 @@ class AdminController extends Controller
 
     public function academy(Request $request)
     {
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = Auth::user();
         $jobseekers = User::where('user_type', 'jobseekers')->get();
         $companies = User::where('user_type', 'company')->get();
         $academies = Academy::get();
@@ -64,7 +65,7 @@ class AdminController extends Controller
 
     public function message()
     {
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = Auth::user();
         $jobseekers = User::where('user_type', 'jobseekers')->get();
         $companies = User::where('user_type', 'company')->get();
         return view('admin.message', compact('admins','jobseekers','companies'));

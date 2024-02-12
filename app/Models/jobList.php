@@ -20,12 +20,17 @@ class jobList extends Model
         'end_date',
         'start_time',
         'end_time',
-        'is_active',
+        'is_active',//status
         
     ];
 
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function applicants()
+    {
+        return $this->hasMany(Applicants::class);
     }
 }
