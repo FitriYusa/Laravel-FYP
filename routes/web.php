@@ -36,13 +36,12 @@ Route::get('/', function () {
 
 
 // Jobseekers routes
-=======
 Route::middleware('auth')->group(function () {
     //Dashboard
     Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
 
     //academy
-    Route::get('/academy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');;
+    Route::get('/jobseekeracademy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');;
 
     //Job
     Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');;
@@ -61,7 +60,7 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::get('/dash', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
 
     //Profile
-    Route::get('/profile', [CompanyController::class, 'companyprofile'])->name('company.profile');
+    Route::get('/profiles', [CompanyController::class, 'companyprofile'])->name('company.profile');
     
     //Job List
     Route::get('/joblist', [CompanyController::class, 'joblist'])->name('company.joblist');
@@ -78,7 +77,6 @@ Route::middleware(['auth', 'company'])->group(function () {
 });
 
 //Admin route
-=======
 Route::middleware(['auth', 'admin'])->group(function () {
     //Dashboard
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -104,7 +102,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
-=======
+
 //Route::match(['get', 'put'], '/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
 
 

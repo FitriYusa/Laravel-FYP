@@ -11,9 +11,15 @@
 
                     @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/jobseekers/profile') }}">Profile</a></li>
+                        <li><a href="{{ url('/profile') }}">Profile</a></li>
                         <li><a href="{{ url('chat') }}">Message</a></li>
-                        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                        <li><a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form></li>
                     @else
                         <li><a href="{{ url('login') }}">Login</a></li>
 
@@ -32,8 +38,8 @@
                 <br>
                 <p style="margin-bottom: 50px;">Great platform for job seekers that are searching for<br>new career heights and passionate about startups.</p>
                 <div class="search-inputs">
-                    <a href="{{ url('/jobseekers/findjob') }}" class="search-button">Search Jobs</a></li>
-                    <a href="{{ url('/jobseekers/academy') }}" class="search-button">Academy</a></li>
+                    <a href="{{ url('/findjob') }}" class="search-button">Search Jobs</a></li>
+                    <a href="{{ url('/jobseekeracademy') }}" class="search-button">Academy</a></li>
                 </div>
             </div>
 

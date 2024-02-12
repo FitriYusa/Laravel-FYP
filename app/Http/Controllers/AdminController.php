@@ -138,7 +138,6 @@ class AdminController extends Controller
         return view('admin.create_academy');
     }
   
-=======
     public function storeAcademy(Request $request )
     {
         $startDate = $request->input('start_date');

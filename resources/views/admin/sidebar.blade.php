@@ -56,7 +56,7 @@
                 <span>Academy</span>
             </a>
             <hr class="sidebar-divider">
-            <a class="nav-link" href="message">
+            <a class="nav-link" href="{{ url('chat') }}">
                 <i class="fas fa-comments"></i>
                 
                 <span>Message</span>

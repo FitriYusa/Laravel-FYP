@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jobseekers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Academy;
 
 class JobseekersController extends Controller
 {
@@ -15,15 +16,22 @@ class JobseekersController extends Controller
     }
 
     public function academypage() {
-        return view('jobseekers/academy');
+
+        $jobseekers = Auth::user();
+        $academies = Academy::get();
+        return view('jobseekers/academy',compact('jobseekers', 'academies'));
     }
 
     public function findjobpage() {
-        return view('jobseekers/findjob');
+
+        $jobseekers = Auth::user();
+        return view('jobseekers/findjob',compact('jobseekers'));
     }
 
     public function profilepage() {
-        return view('jobseekers/profile');
+
+        $jobseekers = Auth::user();
+        return view('jobseekers/profile',compact('jobseekers'));
     }
 
 }
