@@ -25,29 +25,39 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-}); 
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// }); 
 
 
 // Jobseekers routes
-Route::prefix('jobseekers')->group(function () {
+Route::middleware('auth')->group(function () {
+    //Dashboard
     Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
-    Route::get('/academy', [JobseekersController::class, 'academypage']);
-    Route::get('/findjob', [JobseekersController::class, 'findjobpage']);
-    Route::get('/profile', [JobseekersController::class, 'profilepage']);
+
+    //academy
+    Route::get('/academy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');;
+
+    //Job
+    Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');;
+
+    //Profile
+    Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');;
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 //Company routes
-Route::prefix('company')->group(function () {
+Route::middleware(['auth', 'company'])->group(function () {
     //Dashboard
-    Route::get('/dashboard', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
+    Route::get('/dash', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
 
     //Profile
     Route::get('/profile', [CompanyController::class, 'companyprofile'])->name('company.profile');
@@ -67,25 +77,28 @@ Route::prefix('company')->group(function () {
 });
 
 //Admin route
-Route::prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
+    //Dashboard
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    //Company
     Route::get('/company', [AdminController::class, 'company'])->name('admin.company');
+
+    //Job list
     Route::get('/jobList', [AdminController::class, 'joblist'])->name('admin.joblist');
 
+    //Academy
     Route::get('/academy', [AdminController::class, 'academy'])->name('admin.academy');
+    Route::match(['get', 'put'],'/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
+    Route::put('/academy/{AcademyId}', [AdminController::class, 'updateAcademy'])->name('academy.update');
+    Route::delete('/academies/{AcademyId}', [AdminController::class, 'deleteAcademy'])->name('academy.delete');
+    Route::get('/academies/create', [AdminController::class, 'createAcademy'])->name('academy.create');
+    Route::post('/academies', [AdminController::class, 'storeAcademy'])->name('academy.store');
+
+    //Message
     Route::get('/message', [AdminController::class, 'message'])->name('admin.message');
 
-    // Route for showing the edit form
-    Route::match(['get', 'put'],'/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
-
-    // Route for handling the form submission to update the academy
-    Route::put('/academy/{AcademyId}', [AdminController::class, 'updateAcademy'])->name('academy.update');
-
-    Route::delete('/academies/{AcademyId}', [AdminController::class, 'deleteAcademy'])->name('academy.delete');
-
-    Route::get('/academies/create', [AdminController::class, 'createAcademy'])->name('academy.create');
-
-    Route::post('/academies', [AdminController::class, 'storeAcademy'])->name('academy.store');
+   
 
 });
 
