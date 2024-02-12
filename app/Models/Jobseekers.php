@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Jobseekers extends Model
 {
     protected $fillable = [
-        'name', 'email', 'password', 'user_type'
+        'name', 
+        'email', 
+        'password', 
+        'user_type'
     ];
 }

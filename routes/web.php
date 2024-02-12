@@ -24,41 +24,88 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-}); 
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// }); 
 
 
 // Jobseekers routes
-Route::prefix('jobseekers')->group(function () {
-    // Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
-    Route::get('/academy', [JobseekersController::class, 'academypage'])->middleware(['auth','verified']);
-    Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->middleware(['auth','verified']);
-    Route::get('/profile', [JobseekersController::class, 'profilepage'])->middleware(['auth','verified']);
- });
+=======
+Route::middleware('auth')->group(function () {
+    //Dashboard
+    Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
+
+    //academy
+    Route::get('/academy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');;
+
+    //Job
+    Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');;
+
+    //Profile
+    Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');;
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 
 //Company routes
-Route::prefix('company')->group(function () {
-    Route::get('dashboard', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
-    Route::get('profile', [CompanyController::class, 'companyprofile']);
-    Route::get('listing', [CompanyController::class, 'companylisting']);
-    Route::get('applicant', [CompanyController::class, 'companyapplicant']);
-});
+Route::middleware(['auth', 'company'])->group(function () {
+    //Dashboard
+    Route::get('/dash', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
 
+    //Profile
+    Route::get('/profile', [CompanyController::class, 'companyprofile'])->name('company.profile');
+    
+    //Job List
+    Route::get('/joblist', [CompanyController::class, 'joblist'])->name('company.joblist');
+    Route::match(['get', 'put'],'/job/{JobId}/edit', [CompanyController::class, 'editJob'])->name('job.edit');
+    Route::put('/job/{JobId}', [CompanyController::class, 'updateJob'])->name('job.update');
+    Route::delete('/job/{JobId}', [CompanyController::class, 'deleteJob'])->name('job.delete');
+    Route::get('/job/create', [CompanyController::class, 'createJob'])->name('job.create');
+    Route::post('/job', [CompanyController::class, 'storeJob'])->name('job.store');
+
+    //Applicants
+    Route::get('/applicant', [CompanyController::class, 'companyapplicant']);
+
+    
+});
 
 //Admin route
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth','verified'])->name('admin.dashboard');
-    Route::get('/company', [AdminController::class, 'company'])->middleware(['auth','verified'])->name('admin.company');
-    Route::get('/academy', [AdminController::class, 'academy'])->middleware(['auth','verified'])->name('admin.academy');
-    // Route::get('/message', [AdminController::class, 'message'])->name('admin.message');
+=======
+Route::middleware(['auth', 'admin'])->group(function () {
+    //Dashboard
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    //Company
+    Route::get('/company', [AdminController::class, 'company'])->name('admin.company');
+
+    //Job list
+    Route::get('/jobList', [AdminController::class, 'joblist'])->name('admin.joblist');
+
+    //Academy
+    Route::get('/academy', [AdminController::class, 'academy'])->name('admin.academy');
+    Route::match(['get', 'put'],'/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
+    Route::put('/academy/{AcademyId}', [AdminController::class, 'updateAcademy'])->name('academy.update');
+    Route::delete('/academies/{AcademyId}', [AdminController::class, 'deleteAcademy'])->name('academy.delete');
+    Route::get('/academies/create', [AdminController::class, 'createAcademy'])->name('academy.create');
+    Route::post('/academies', [AdminController::class, 'storeAcademy'])->name('academy.store');
+
+    //Message
+    Route::get('/message', [AdminController::class, 'message'])->name('admin.message');
+
+   
 
 });
+
+=======
+//Route::match(['get', 'put'], '/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
+
 
 require __DIR__.'/auth.php';

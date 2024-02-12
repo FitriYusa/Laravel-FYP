@@ -8,17 +8,17 @@
   <meta name="author" content="">
   <title>Admin Company</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-  <!-- Custom styles for table -->
-  <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-
-  <script src="https://kit.fontawesome.com/6d016c170f.js" crossorigin="anonymous"></script>
+   <!-- Custom fonts for this template-->
+   <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+   
+   <!-- Custom styles for this template-->
+   <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
+ 
+   <!-- Custom styles for table -->
+   <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+ 
+   <script src="https://kit.fontawesome.com/6d016c170f.js" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -43,29 +43,49 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Companies</h1>
+                        <h1 class="h3 mb-0 text-gray-800">JOB</h1>
                     </div>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Companies List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Job List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Location</th>
+                                            <th>Type</th>
+                                            <th>Salary</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($companies as $company)
+                                        @foreach($jobList as $job)
                                             <tr>
-                                                <td>{{ $company->id }}</td>
-                                                <td>{{ $company->name }}</td>
-                                                <td>{{ $company->email }}</td>
+                                                <td>{{ $job->title }}</td>
+                                                <td>{{ $job->description }}</td>
+                                                <td>{{ $job->location }}</td>
+                                                <td>{{ $job->type }}</td>
+                                                <td>{{ $job->salary }}</td>
+                                                <td>{{ $job->start_date }}</td>
+                                                <td>{{ $job->end_date }}</td>
+                                                <td>{{ $job->start_time }}</td>
+                                                <td>{{ $job->end_time }}</td>
+                                                <td>
+                                                    @if($job->is_active)
+                                                        Open
+                                                    @else
+                                                        Closed
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
