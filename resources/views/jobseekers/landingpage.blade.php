@@ -15,11 +15,12 @@
                         <li><a href="{{ url('chat') }}">Message</a></li>
                         <li><a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
-                        </a>
-                        
+                          </a>
+                    
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
-                        </form></li>
+                        </form>
+                      </li>
                     @else
                         <li><a href="{{ url('login') }}">Login</a></li>
 
@@ -42,6 +43,26 @@
                     <a href="{{ url('/jobseekeracademy') }}" class="search-button">Academy</a></li>
                 </div>
             </div>
+
+            <section class="academy-info">
+                <h1>Our Academies</h1>
+                <p>Explore a wealth of online courses, workshops, and resources designed to enhance your skills, expand your knowledge, and propel your career forward.</p>
+
+                <div class="row">
+                    <div class="academy-col">
+                        <h3>Online Courses</h3>
+                        <p>Offer a variety of online courses covering topics such as job search strategies, resume writing, interview preparation, career development, and industry-specific skills.</p>
+                    </div>
+                    <div class="academy-col">
+                        <h3>Variety</h3>
+                        <p>Broaden your horizons with our comprehensive selection of courses, meticulously crafted to cater to diverse career paths and skill levels. From mastering industry-specific tools to honing leadership abilities, our courses offer practical insights and hands-on learning experiences to help you excel in your professional journey.</p>
+                    </div>
+                    <div class="academy-col">
+                        <h3>Live Webinars and Workshops</h3>
+                        <p>Host live webinars and workshops conducted by industry professionals, covering current trends, best practices, and practical skills related to job seeking and career advancement.</p>
+                    </div>
+                </div>
+            </section>
 
             <div class="footer">
                 FLEXWAVES

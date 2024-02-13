@@ -14,12 +14,13 @@
                 <li><a href="{{ url('/profile') }}">Profile</a></li>
                 <li><a href="{{ url('chat') }}" >Message</a></li>
                 <li><a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                  {{ __('Logout') }}
-              </a>
+                      {{ __('Logout') }}
+                    </a>
               
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
-              </form></li>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+                </li>
             @else
                 <li><a href="{{ url('login') }}" >Login</a></li>
 
@@ -38,10 +39,12 @@
         <br>
         <br>
         
-        <div class="search-inputs-academy">
-          <input type="text" placeholder="Search Academy" class="job-input">
-          <button class="search-button">Search</button>
-        </div>
+        <form method="get" action="{{ route('jobseekers.academy') }}">
+          <div class="search-inputs-academy">
+            <input name ="query" type="text" value="{{ $query ?? '' }}" placeholder="Search Academy" class="job-input">
+            <button class="search-button">Search</button>
+          </div>
+        </form>
         
       </div>
       <br>
@@ -54,7 +57,7 @@
 
             @foreach( $academies as $academy)
             <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
+              <a href="{{ url('/jobseekeracademy/' . $academy->id) }}')}}" class="ag-courses-item_link">
                 <div class="ag-courses-item_bg"></div>
                 <div class="ag-courses-item_title">{{ $academy->title }}</div>
                 
@@ -80,145 +83,19 @@
             </div>
             @endforeach
         
-            {{-- <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-        
-                <div class="ag-courses-item_title">
-                  UX/UI Web-Design&#160;+ Mobile Design
-                </div>
-        
-                <div class="ag-courses-item_date-box">
-                  Start:
-                  <span class="ag-courses-item_date">
-                    04.11.2022
-                  </span>
-                </div>
-              </a>
-            </div>
-        
-            <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-        
-                <div class="ag-courses-item_title">
-                  Annual package "Product+UX/UI+Graph designer&#160;2022"
-                </div>
-        
-                <div class="ag-courses-item_date-box">
-                  Start:
-                  <span class="ag-courses-item_date">
-                    04.11.2022
-                  </span>
-                </div>
-              </a>
-            </div>
-        
-            <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-        
-                <div class="ag-courses-item_title">
-                  Graphic Design
-                </div>
-        
-                <div class="ag-courses-item_date-box">
-                  Start:
-                  <span class="ag-courses-item_date">
-                    04.11.2022
-                  </span>
-                </div>
-              </a>
-            </div>
-        
-            <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-        
-                <div class="ag-courses-item_title">
-                  Motion Design
-                </div>
-        
-                <div class="ag-courses-item_date-box">
-                  Start:
-                  <span class="ag-courses-item_date">
-                    30.11.2022
-                  </span>
-                </div>
-              </a>
-            </div>
-        
-            <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-        
-                <div class="ag-courses-item_title">
-                  Front-end development&#160;+ jQuery&#160;+ CMS
-                </div>
-              </a>
-            </div>
-        
-            <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg">
-                </div>
-                <div class="ag-courses-item_title">
-                  Digital Marketing
-                </div>
-              </a>
-            </div>
-        
-            <div class="ag-courses_item">
-              <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div>
-        
-                <div class="ag-courses-item_title">
-                  Interior Design
-                </div>
-        
-                <div class="ag-courses-item_date-box">
-                  Start:
-                  <span class="ag-courses-item_date">
-                    31.10.2022
-                  </span>
-                </div>
-              </a>
-            </div> --}}
-        
           </div>
         </div>
 
         {{-- END-Academy Card --}}
 
-        {{-- @foreach($academies->chunk(3) as $row)
-            <div class="company-row">
-                @foreach($row as $academy)
-                <div class="company-box">
-                    <img src="images/companyrandom.png" alt="Company Logo 1"> 
-                    <p style="font-size: 40px;">{{ $academy->title }}</p>
-                    <p style="text-align: left; font-size: 20px;">{{ $academy->description }}</p>
-                    <button class="search-button">Apply</button>
-                </div>
-                @endforeach
-            </div>
-        @endforeach --}}
+        {{-- Pagination Links --}}
+
+      {{-- <p class="pagination-p">Showing academies {{ $academies->firstItem() }} to {{ $academies->lastItem() }}</p>    --}}
+      <div class="pagination-links">
+        {{ $academies->links('pagination::tailwind') }}
+      </div> 
 
     </div>
-    
-        {{-- <div class="company-box">
-            <img src="images/companyrandom.png" alt="Company Logo 1">
-            <p style="font-size: 40px;">Advanced Web Designs</p>
-            <p style="text-align: left; font-size: 20px;">Start making advanced HTML5, CSS<br> and Javascript coding to produce the<br> best quality of websites.</p>
-            <button class="search-button">Apply</button>
-          </div>
-    
-          <div class="company-box">
-            <img src="images/companyrandom.png" alt="Company Logo 1">
-            <p style="font-size: 40px;">Advanced Web Designs</p>
-            <p style="text-align: left; font-size: 20px;">Start making advanced HTML5, CSS<br> and Javascript coding to produce the<br> best quality of websites.</p>
-            <button class="search-button">Apply</button>
-          </div> --}}
-      </div>
       
       <div class="footer">
         FLEXWAVES

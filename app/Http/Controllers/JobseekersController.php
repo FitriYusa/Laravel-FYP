@@ -15,11 +15,31 @@ class JobseekersController extends Controller
         return view('jobseekers/landingpage',compact('jobseekers'));
     }
 
-    public function academypage() {
+    public function academypage(Request $request) {
 
         $jobseekers = Auth::user();
-        $academies = Academy::get();
-        return view('jobseekers/academy',compact('jobseekers', 'academies'));
+        $query = $request->input('query');
+    
+        // Start with the base query
+        $academiesQuery = Academy::query();
+    
+        // If there's a search query, filter the academies based on it
+        if ($query) {
+            $academiesQuery->where('title', 'like', '%' . $query . '%');
+        }
+    
+        // Now paginate the results
+        $academies = $academiesQuery->paginate(6);
+    
+        return view('jobseekers.academy', compact('jobseekers', 'academies', 'query'));
+    }
+
+    public function showAcademy($id){
+
+        $jobseekers = Auth::user();
+        $academy = Academy::find($id); 
+
+        return view('jobseekers.showacademy', compact('academy', 'jobseekers'));
     }
 
     public function findjobpage() {

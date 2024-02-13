@@ -41,13 +41,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
 
     //academy
-    Route::get('/jobseekeracademy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');;
+    Route::get('/jobseekeracademy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');
+    Route::get('/jobseekeracademy/{id}', [JobseekersController::class, 'showAcademy'])->name('jobseekers.showacademy');
 
     //Job
-    Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');;
+    Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');
 
     //Profile
-    Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');;
+    Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

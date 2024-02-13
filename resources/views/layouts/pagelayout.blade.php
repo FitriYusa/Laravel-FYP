@@ -65,7 +65,7 @@
         } */
 
         .navbar li:not(:first-child):hover{
-            background-color: #8080D7;
+            background: linear-gradient(to bottom, #8080D7, #05c8d6);
             color: white;
         }
 
@@ -136,10 +136,63 @@
         .footer {
             background-color: #ffffff;
             text-align: center;
-            padding: 75px;
+            padding: 20px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             color: #8080D7; /* Purple color */
-            font-size: 60px;
+            font-size: 30px;
+        }
+
+        /* --- Academy Info --- */
+        .academy-info{
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .academy-info h1{
+            font-size: 36px;
+            font-weight: 600
+        }
+
+        .academy-info p{
+            color: #616161;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 22px;
+            padding: 10px;
+        }
+
+        .academy-info .row{
+            margin-top: 3%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .academy-info .row .academy-col{
+            flex-basis: 30%;
+            border-radius: 10px;
+            margin-bottom: 5%;
+            padding: 20px 12px;
+            box-sizing: border-box;
+            background:#d7d7ff;
+            transition: 0.5s;
+        }
+
+        .academy-info .row .academy-col h3{
+            text-align: center;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+
+        .academy-info .row .academy-col:hover {
+            box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+        }
+
+        @media(max-width: 700px){
+            .academy-info .row{
+                flex-direction: column;
+            }
         }
 
         /* END-LANDING PAGE CSS */
@@ -232,7 +285,7 @@
         .ag-courses-item_link {
             display: block;
             padding: 30px 20px;
-            background-color: #121212;
+            background: linear-gradient(to bottom, #05c8d6, #8080D7);;
             overflow: hidden;
             position: relative;
         }
@@ -344,32 +397,85 @@
             }
             }
 
-        /* .company-container {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                align-items: center;
-                padding: 50px;
-                background-color: #ffffff; 
-            }
-            
-        .company-box {
-                width: 300px;
-                text-align: center;
-                border: 2px solid #00000069; 
-                border-radius: 10px; 
-                padding: 20px; 
-                margin: 20px; 
-        } */
-            
-        .company-box img {
-                width: 100px; /* Adjust the size of the company logos */
-                height: auto;
-                margin-bottom: 20px;    
+        .pagination-links {
+            justify-content: center;
+            display: flex;
+            margin: 10px 0px 20px 0px;
+        }
+
+        .pagination-p{
+            text-align: center;
         }
 
         /* END-ACADEMY PAGE CSS */
 
+        .academy-container {
+            display: flex;
+            justify-content: center; /* Horizontally center the card */
+            align-items: center; /* Vertically center the card */
+            height: 100vh; /* Make the container cover the entire viewport */
+        }
+
+        .academy-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 30%;
+            height: 90vh; /* Set height to cover the entire viewport */
+            margin: 0; /* Remove margin */
+        }
+
+        .academy-card-header,
+        .academy-card-body,
+        .academy-card-footer {
+            width: 100%;
+        }
+
+        .academy-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .academy-location {
+            color: #666;
+        }
+
+        .academy-description {
+            margin-top: 0;
+        }
+
+        .academy-type,
+        .academy-dates,
+        .academy-times {
+            margin-bottom: 5px;
+        }
+
+        .apply-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: white;
+            color: black; /* White text color */
+            border: 2px solid #6d6dce; /* Black border */
+            border-radius: 10px; /* Rounded edges */
+            cursor: pointer;
+            transition: 
+                transform 0.15s ease-out,
+                color 0.15s ease-out,
+                background-color 0.15s ease-out;
+        }
+
+        .apply-button:hover {
+            transform: translate(5px, 5px);
+            color: white;
+            background: #6d6dce;
+            font-weight: bold;
+        }
+        
     </style>
 </head>
 <body>
