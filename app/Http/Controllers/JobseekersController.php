@@ -19,7 +19,6 @@ class JobseekersController extends Controller
     }
 
     public function academypage(Request $request) {
-
         $jobseekers = Auth::user();
         $query = $request->input('query');
     
@@ -28,7 +27,11 @@ class JobseekersController extends Controller
     
         // If there's a search query, filter the academies based on it
         if ($query) {
-            $academiesQuery->where('title', 'like', '%' . $query . '%');
+            $academiesQuery->where(function ($subQuery) use ($query) {
+                $subQuery->where('title', 'like', '%' . $query . '%')
+                         ->orWhere('location', 'like', '%' . $query . '%')
+                         ->orWhere('type', 'like', '%' . $query . '%');
+            });
         }
     
         // Now paginate the results
@@ -36,6 +39,7 @@ class JobseekersController extends Controller
     
         return view('jobseekers.academy', compact('jobseekers', 'academies', 'query'));
     }
+    
 
     public function showAcademy($id){
 
@@ -46,24 +50,27 @@ class JobseekersController extends Controller
     }
 
     public function findjobpage(Request $request) {
-
         $jobseekers = Auth::user();
         $query = $request->input('query');
     
         // Start with the base query
-        //$jobsQuery = jobList::query();
         $jobsQuery = jobList::query()->with('company');
     
-        // If there's a search query, filter the academies based on it
+        // If there's a search query, filter the jobs based on it
         if ($query) {
-            $jobsQuery->where('title', 'like', '%' . $query . '%');
+            $jobsQuery->where(function ($subQuery) use ($query) {
+                $subQuery->where('title', 'like', '%' . $query . '%')
+                         ->orWhere('location', 'like', '%' . $query . '%')
+                         ->orWhere('type', 'like', '%' . $query . '%');
+            });
         }
     
         // Now paginate the results
         $jobs = $jobsQuery->paginate(6);
-
-        return view('jobseekers.findjob',compact('jobseekers', 'jobs', 'query',));
+    
+        return view('jobseekers.findjob', compact('jobseekers', 'jobs', 'query'));
     }
+    
 
     public function showJob($id){
         $jobseekers = Auth::user();
