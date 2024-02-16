@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Academy;
 use App\Models\jobList;
 use App\Models\Company;
+use App\Models\User;
 
 class JobseekersController extends Controller
 {
@@ -50,7 +51,8 @@ class JobseekersController extends Controller
         $query = $request->input('query');
     
         // Start with the base query
-        $jobsQuery = jobList::query();
+        //$jobsQuery = jobList::query();
+        $jobsQuery = jobList::query()->with('company');
     
         // If there's a search query, filter the academies based on it
         if ($query) {

@@ -56,12 +56,14 @@
                 <img class="aspect-[2/2] w-16" src="https://img.icons8.com/fluency/48/null/mac-os.png" />
                 <div>
                     @if($job->company)
-                    <h3 class="text-xl font-bold text-neutral-950 group-hover:text-gray-50">{{$job->company->name}}</h3>
+                    <h3 class="text-xl font-bold text-neutral-950 group-hover:text-gray-50">{{ optional($job->company)->name }}</h3>
                 @else
                     <h3 class="text-xl font-bold text-neutral-950 group-hover:text-gray-50">No Company</h3>
                 @endif
                   <span class="text-xs font-bold text-gray-700 group-hover:text-gray-300">{{$job->location}}</span>
                 </div>
+                {{-- Inspect the company relationship --}}
+    {{-- @dd($job->company) --}}
               </div>
               <div class="my-4">
                 <h3 class="text-2xl font-medium text-black group-hover:text-gray-200">{{$job->title}}</h3>
