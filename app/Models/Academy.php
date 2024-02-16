@@ -27,4 +27,9 @@ class Academy extends Model
     {
         return $this->belongsTo(Admin::class);
     }
+
+    public function academyApplications()
+    {
+        return $this->hasMany(academyApply::class);
+    }
 }

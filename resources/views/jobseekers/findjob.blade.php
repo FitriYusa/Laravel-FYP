@@ -32,6 +32,29 @@
         </ul>
     </nav>
 
+
+
+<!--
+    <div>
+    <!-- job_list.blade.php -->
+
+    @foreach ($jobs as $job)
+    <div>
+        <h4>{{ $job->title }}</h4>
+        <p>Description: {{ $job->description }}</p>
+        <!-- Other job details -->
+        @if (!$job->isAppliedByUser(auth()->user()))
+            <form action="{{ route('apply.job', $job->id) }}" method="POST">
+                @csrf
+                <button type="submit">Apply</button>
+            </form>
+        @else
+            <p>You have already applied for this job.</p>
+        @endif
+    </div>
+    @endforeach
+    </div>
+-->
     <div class="header">
         <h1>Finding Jobs <span class="highlight">Made Easier</span></h1>
         <br>
@@ -93,4 +116,5 @@
     <footer class="footer">
         FLEXWAVES
     </footer>
+
 @endsection

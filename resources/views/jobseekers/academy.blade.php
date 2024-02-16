@@ -5,7 +5,7 @@
     {{-- Topbar --}}
     <nav class="navbar">
         <ul >
-            <li><a href="">F L E X W A V E S</a></li>
+            <li><a href="/">F L E X W A V E S</a></li>
 
             @if (Route::has('login'))
             @auth
