@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 
     //Job
     Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');
+    Route::get('/findjob/{id}', [JobseekersController::class, 'showJob'])->name('jobseekers.showjob');
 
     //Profile
     Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');

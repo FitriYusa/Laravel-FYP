@@ -45,9 +45,9 @@
             <button class="search-button">Search</button>
           </div>
         </form>
-        
-      </div>
+     </div>
       <br>
+      
       <p style="padding-left: 120px; font-size: 35px;"><b>Academies</b></p>
       <div class="company-container">
       

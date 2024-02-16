@@ -6,6 +6,8 @@ use App\Models\Jobseekers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Academy;
+use App\Models\jobList;
+use App\Models\Company;
 
 class JobseekersController extends Controller
 {
@@ -42,10 +44,30 @@ class JobseekersController extends Controller
         return view('jobseekers.showacademy', compact('academy', 'jobseekers'));
     }
 
-    public function findjobpage() {
+    public function findjobpage(Request $request) {
 
         $jobseekers = Auth::user();
-        return view('jobseekers/findjob',compact('jobseekers'));
+        $query = $request->input('query');
+    
+        // Start with the base query
+        $jobsQuery = jobList::query();
+    
+        // If there's a search query, filter the academies based on it
+        if ($query) {
+            $jobsQuery->where('title', 'like', '%' . $query . '%');
+        }
+    
+        // Now paginate the results
+        $jobs = $jobsQuery->paginate(6);
+
+        return view('jobseekers.findjob',compact('jobseekers', 'jobs', 'query',));
+    }
+
+    public function showJob($id){
+        $jobseekers = Auth::user();
+        $job = jobList::find($id); 
+
+        return view('jobseekers.showjob', compact('job', 'jobseekers'));
     }
 
     public function profilepage() {

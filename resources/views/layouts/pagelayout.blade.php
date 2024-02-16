@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap" rel="stylesheet">
 
+    {{-- Icons --}}
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -412,8 +415,8 @@
         .academy-container {
             display: flex;
             justify-content: center; /* Horizontally center the card */
-            align-items: center; /* Vertically center the card */
-            height: 100vh; /* Make the container cover the entire viewport */
+            margin-top: 50px;
+            height: 100%; /* Make the container cover the entire viewport */
         }
 
         .academy-card {
@@ -421,13 +424,10 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
             align-items: center;
             text-align: center;
             width: 30%;
-            height: 90vh; /* Set height to cover the entire viewport */
-            margin: 0; /* Remove margin */
+            height: 45%; /* Set height to cover the entire viewport */
         }
 
         .academy-card-header,
@@ -475,6 +475,8 @@
             background: #6d6dce;
             font-weight: bold;
         }
+
+        
         
     </style>
 </head>

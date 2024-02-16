@@ -24,7 +24,7 @@ class JobListSeeder extends Seeder
                 'title' => $faker->jobTitle,
                 'description' => $faker->paragraph,
                 'location' => $faker->city,
-                'type' => $faker->randomElement(['full-time', 'part-time', 'contract']),
+                'type' => $faker->randomElement(['Full-Time', 'Part-Time', 'Contract', 'Internship']),
                 'salary' => $faker->randomNumber(5), // Generates a random salary with up to 5 digits
                 'start_date' => $faker->date,
                 'end_date' => $faker->date, 
