@@ -178,6 +178,78 @@ class AdminController extends Controller
         // // Redirect back to the academy list with a success message
         return redirect()->route('admin.academy',$academy)->with('success', 'Academy added successfully.');
     }
+
+    // public function showNewBookings()
+    // {
+    //     $bookings = Academy::whereIn('academies_id', function ($query) {
+    //             $query->select('id')
+    //                 ->from('academies_list')
+    //                 ->where('admin_id', Auth::id()); // Ensure this matches your authenticated user's ID
+    //         })
+    //         ->whereIn('apply_status', ['pending', 'reject'])
+    //         ->with('company', 'user') // Ensure these relationships are defined in your Booking model
+    //         ->get();
+
+    //     return view('company.newbookings', compact('bookings'));
+    // }
+
+    // public function showBookings()
+    // {
+    //     $bookings = jobList::whereIn('job_id', function ($query) {
+    //             $query->select('id')
+    //                 ->from('properties')
+    //                 ->where('landlord_id', Auth::id()); // Ensure this matches your authenticated user's ID
+    //         })
+    //         ->where('apply_status', 'accept') // Add this line to filter by status
+    //         ->with('company', 'user') // Ensure these relationships are defined in your Booking model
+    //         ->get();
+
+    //     return view('company.bookings', compact('bookings'));
+    // }
+
+
+    public function handleBooking(Request $request, $bookingId)
+    {
+        // Find the booking record
+        $booking = jobList::findOrFail($bookingId);
+
+        // Check if the landlord owns the property associated with this booking
+        if ($booking->property->landlord_id !== Auth::id()) {
+            return redirect()->route('landlordView.index')->with('error', 'Unauthorized action.');
+        }
+
+        // Handle different actions based on the request
+        switch ($request->input('action')) {
+            case 'accept':
+                $booking->booking_status = 'accept';
+                $message = 'Your booking has been accepted.';
+                $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' has been accepted.';
+                break;
+            case 'reject':
+                $booking->booking_status = 'cancel';
+                $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' has been canceled.';
+                break;
+            case 'pending':
+                $booking->booking_status = 'pending';
+                $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' is pending.';
+                break;
+            case 'delete':
+                $booking->delete();
+                break;
+            default:
+                return redirect()->route('company.index')->with('error', 'Invalid action.');
+        }
+
+        $booking->save();
+        
+        // Notify the user about the booking status update
+        if (isset($message)) {
+            $booking->user->notify(new BookingNotification($booking, $message));
+        }
+
+        // return redirect()->route('landlordView.new.bookings')->with('success', 'Booking request updated.');
+        return back()->with('success', 'Booking request updated.');
+    }
 }
 
 

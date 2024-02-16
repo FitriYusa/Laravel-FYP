@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Applicants extends Model
+class academyApply extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'job_id',
-        'apply_status',
-        'cv',
+        'user_id', 
+        'job_id', 
+        'status', 
+        'cover_letter'
     ];
 
     public function user()
@@ -21,8 +21,8 @@ class Applicants extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function jobList()
+    public function academy()
     {
-        return $this->belongsTo(jobList::class);
+        return $this->belongsTo(Academy::class);
     }
 }

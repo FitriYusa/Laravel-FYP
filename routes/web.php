@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobseekersController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\AdminController;
+use App\Models\Company;
+use App\Models\Jobseekers;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,17 @@ Route::get('/', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // }); 
 
+Route::get('/', function () {
+    return view('jobseekers.landingpage');
+});
+
+
+Route::get('/jobseekeracademy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');
+Route::get('/jobseekeracademy/{id}', [JobseekersController::class, 'showAcademy'])->name('jobseekers.showacademy');
+Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');
+
+Route::post('/apply-job/{jobId}', [JobseekersController::class, 'apply'])->name('apply.job');
+
 
 // Jobseekers routes
 Route::middleware('auth')->group(function () {
@@ -42,10 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
 
     //academy
-    Route::get('/academy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');;
+    
 
     //Job
-    Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');;
+    
 
     //Profile
     Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');;

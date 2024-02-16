@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('academies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('academies_id');
             $table->string('title');
             $table->text('description');
             //$table->string('image')->nullable();
