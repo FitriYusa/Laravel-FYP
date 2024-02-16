@@ -9,6 +9,10 @@ use App\Models\Academy;
 use App\Models\academyApply;
 use App\Models\jobList;
 use App\Models\Applicants;
+use App\Models\jobList;
+use App\Models\Company;
+use App\Models\User;
+
 
 class JobseekersController extends Controller
 {
@@ -18,21 +22,71 @@ class JobseekersController extends Controller
         return view('jobseekers/landingpage',compact('jobseekers'));
     }
 
-    public function academypage() {
-        return view('jobseekers/academy');
+    public function academypage(Request $request) {
+        $jobseekers = Auth::user();
+        $query = $request->input('query');
+    
+        // Start with the base query
+        $academiesQuery = Academy::query();
+    
+        // If there's a search query, filter the academies based on it
+        if ($query) {
+            $academiesQuery->where(function ($subQuery) use ($query) {
+                $subQuery->where('title', 'like', '%' . $query . '%')
+                         ->orWhere('location', 'like', '%' . $query . '%')
+                         ->orWhere('type', 'like', '%' . $query . '%');
+            });
+        }
+    
+        // Now paginate the results
+        $academies = $academiesQuery->paginate(6);
+    
+        return view('jobseekers.academy', compact('jobseekers', 'academies', 'query'));
     }
+    
 
-    public function findjobpage() {
+    public function showAcademy($id){
 
         $jobseekers = Auth::user();
+        $academy = Academy::find($id); 
+      
+        return view('jobseekers.showacademy', compact('academy', 'jobseekers'));
+    }
 
-        $jobs = JobList::all(); // Fetch all jobs from the database
+    public function findjobpage(Request $request) {
+        $jobseekers = Auth::user();
+        $query = $request->input('query');
+    
+        // Start with the base query
+        $jobsQuery = jobList::query()->with('company');
+    
+        // If there's a search query, filter the jobs based on it
+        if ($query) {
+            $jobsQuery->where(function ($subQuery) use ($query) {
+                $subQuery->where('title', 'like', '%' . $query . '%')
+                         ->orWhere('location', 'like', '%' . $query . '%')
+                         ->orWhere('type', 'like', '%' . $query . '%');
+            });
+        }
+    
+        // Now paginate the results
+        $jobs = $jobsQuery->paginate(6);
+    
+        return view('jobseekers.findjob', compact('jobseekers', 'jobs', 'query'));
+    }
+    
 
-        return view('jobseekers/findjob',compact('jobseekers','jobs'));
+    public function showJob($id){
+        $jobseekers = Auth::user();
+        $job = jobList::find($id); 
+
+        return view('jobseekers.showjob', compact('job', 'jobseekers'));
     }
 
     public function profilepage() {
-        return view('jobseekers/profile');
+
+        $jobseekers = Auth::user();
+        return view('jobseekers/profile',compact('jobseekers'));
     }
 
     // public function applyJob(Request $request, $jobId)

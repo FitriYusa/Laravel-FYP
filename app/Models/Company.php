@@ -18,4 +18,9 @@ class Company extends Model
     {
         return $this->hasMany(jobList::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class)->where('user_type', 'company');
+    }
 }

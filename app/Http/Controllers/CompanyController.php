@@ -49,7 +49,7 @@ class CompanyController extends Controller
         $joblist = JobList::where('company_id', $companyId)->get();
 
         // Get the list of companies for any other functionality you might need
-        $companies = User::where('user_type', 'company')->get();
+        $companies = Auth::user();
 
         return view('company.joblist', compact('joblist', 'companies', 'companyId'));
 

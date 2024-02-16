@@ -23,7 +23,6 @@ Route::get('/', function () {
     //return view('welcome');
     return view('jobseekers.landingpage');
     //Route::get('/', [AdminController::class, 'index']);
-
 });
 
 
@@ -45,7 +44,7 @@ Route::get('/', function () {
 Route::get('/jobseekeracademy', [JobseekersController::class, 'academypage'])->name('jobseekers.academy');
 Route::get('/jobseekeracademy/{id}', [JobseekersController::class, 'showAcademy'])->name('jobseekers.showacademy');
 Route::get('/findjob', [JobseekersController::class, 'findjobpage'])->name('jobseekers.findjob');
-
+Route::get('/findjob/{id}', [JobseekersController::class, 'showJob'])->name('jobseekers.showjob');
 Route::post('/apply-job/{jobId}', [JobseekersController::class, 'apply'])->name('apply.job');
 
 
@@ -55,17 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [JobseekersController::class, 'landingpage'])->name('jobseekers.dashboard');
 
     //academy
-    
 
     //Job
-    
 
     //Profile
-    Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');;
+    Route::get('/profile', [JobseekersController::class, 'profilepage'])->name('jobseekers.profile');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 //Company routes
 Route::middleware(['auth', 'company'])->group(function () {
@@ -73,7 +71,7 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::get('/dash', [CompanyController::class, 'companydashboard'])->name('company.dashboard');
 
     //Profile
-    Route::get('/profile', [CompanyController::class, 'companyprofile'])->name('company.profile');
+    Route::get('/profiles', [CompanyController::class, 'companyprofile'])->name('company.profile');
     
     //Job List
     Route::get('/joblist', [CompanyController::class, 'joblist'])->name('company.joblist');
@@ -115,6 +113,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+
 //Route::match(['get', 'put'], '/academy/{AcademyId}/edit', [AdminController::class, 'editAcademy'])->name('academy.edit');
+
 
 require __DIR__.'/auth.php';

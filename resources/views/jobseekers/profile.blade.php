@@ -1,14 +1,28 @@
 @extends('layouts.pagelayout')
 
 @section('content')
-    <div class="center">
-        <p class="leading-text" style="font-weight: 700">
-            Profile page
-        </p>
-        <ul>
-            <li class="list"><a href="/academy">Academy</a></li>
-            <li class="list"><a href="/findjob">Find Jobs</a></li>
-            <li class="list"><a href="/landing">Landing Page</a></li>
+
+    {{-- Topbar --}}
+    <nav class="navbar">
+        <ul >
+            <li><a href="">F L E X W A V E S</a></li>
+
+            @if (Route::has('login'))
+            @auth
+                <li><a href="{{ url('/') }}">Home</a></li>
+                <li><a href="{{ url('/jobseekers/findjob') }}">Find Jobs</a></li>
+                <li><a href="{{ url('/jobseekers/academy') }}">Academy</a></li>
+                <li><a href="{{ url('chat') }}">Message</a></li>
+                <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+            @else
+                <li><a href="{{ url('login') }}">Login</a></li>
+
+                @if (Route::has('register'))
+                    <li><a href="{{ url('register') }}">Register</a></li>
+                @endif
+            @endauth
+            @endif
         </ul>
-    </div>
+    </nav>
+    
 @endsection
