@@ -33,4 +33,9 @@ class jobList extends Model
     {
         return $this->hasMany(Applicants::class);
     }
+
+    public function isAppliedByUser($userId)
+    {
+        return $this->applicants()->where('user_id', $userId)->exists();
+    }
 }

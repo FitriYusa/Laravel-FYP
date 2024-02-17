@@ -160,7 +160,7 @@ class AdminController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
-             'is_active' => 'required|boolean',
+            'is_active' => 'required|boolean',
         //     //'image' => 'nullable|file|image|mimes:jpeg,png|max:2048',
         ]);
 

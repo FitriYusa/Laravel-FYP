@@ -9,20 +9,28 @@ class Applicants extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'job_id',
-        'apply_status',
-        'cv',
-    ];
+    // protected $fillable = [
+    //     'user_id',
+    //     'job_list_id',
+    //     'apply_status',
+    // ];
+
+    protected $table = 'applicants';
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function jobList()
+    public function job()
     {
-        return $this->belongsTo(jobList::class);
+        return $this->belongsTo(jobList::class, 'job_list_id');
     }
+
+    // public static function isAppliedByUserJob($userId, $jobId)
+    // {
+    //     return static::where('user_id', $userId)->where('job_id', $jobId)->exists();
+    // }
+
+
 }

@@ -45,7 +45,19 @@
                 <p class="academy-times">End Time: {{ $academy->end_time }}</p>
             </div><br>
             <div class="academy-card-footer">
-                <button class="apply-button">Apply Now</button>
+                
+                <form action="{{ route('apply.academy', ['academyId' => $academy->id]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="apply-button">Apply Now</button>
+                </form>
+                @if (session('error'))
+                    <script>
+                        // Display the error message
+                        alert('{{ session('error') }}');
+                        // Remove the error message from the session to prevent displaying it again
+                        {{ session()->forget('error') }}
+                    </script>
+                @endif
             </div>
         </div>
     </div> 

@@ -45,7 +45,21 @@
                 <p class="academy-times">End Time: {{ $job->end_time }}</p>
             </div><br>
             <div class="academy-card-footer">
+                <form action="{{ route('apply.job', ['jobId' => $job->id]) }}" method="POST">
+                    @csrf
                 <button class="apply-button">Apply Now</button>
+                </form>
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
         </div>
     </div> 

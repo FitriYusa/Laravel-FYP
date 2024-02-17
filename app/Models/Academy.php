@@ -28,6 +28,17 @@ class Academy extends Model
         return $this->belongsTo(Admin::class);
     }
 
+    public function applicants()
+    {
+        return $this->hasMany(AcademyApply::class);
+    }
+
+    public function isAppliedByUser($userId)
+    {
+        return $this->applicants()->where('user_id', $userId)->exists();
+    }
+    
+
     public function academyApplications()
     {
         return $this->hasMany(academyApply::class);

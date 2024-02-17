@@ -9,20 +9,15 @@ class academyApply extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id', 
-        'job_id', 
-        'status', 
-        'cover_letter'
-    ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $table = 'academy_applies';
 
     public function academy()
     {
         return $this->belongsTo(Academy::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

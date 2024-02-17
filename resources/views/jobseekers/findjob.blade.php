@@ -34,9 +34,9 @@
 
 
 
-<!--
+{{-- 
     <div>
-    <!-- job_list.blade.php -->
+    <!--job_list.blade.php -->
 
     @foreach ($jobs as $job)
     <div>
@@ -53,8 +53,8 @@
         @endif
     </div>
     @endforeach
-    </div>
--->
+    </div> --}}
+
     <div class="header">
         <h1>Finding Jobs <span class="highlight">Made Easier</span></h1>
         <br>
