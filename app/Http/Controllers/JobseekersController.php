@@ -101,7 +101,7 @@ class JobseekersController extends Controller
         $application = new academyApply();
         $application->academy_id = $academyId;
         $application->user_id = auth()->id();
-        $application->status = 'pending'; // Set initial status
+        $application->apply_status = 'pending'; // Set initial status
         $application->save();
 
         //dd(session()->all());
