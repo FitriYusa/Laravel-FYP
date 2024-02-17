@@ -41,7 +41,6 @@
                 <div class="search-inputs">
                     <a href="{{ url('/findjob') }}" class="search-button">Search Jobs</a></li>
                     <a href="{{ url('/jobseekeracademy') }}" class="search-button">Academy</a></li>
-                    <a href="{{ route('applied_items') }}" class="search-button">Applied</a></li>
                 </div>
             </div>
 

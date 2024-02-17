@@ -10,7 +10,8 @@
             @if (Route::has('login'))
             @auth
                 <li><a href="{{ url('/') }}" >Home</a></li>
-                <li><a href="{{ url()->previous() }}">Back</a></li>
+                <li><a href="{{ url('/findjob') }}">Back</a></li>
+                <li><a href="{{ route('applied_items') }}">Applied</a></li>
                 <li><a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                       {{ __('Logout') }}
                     </a>
