@@ -33,10 +33,10 @@ class ProfileController extends Controller
             'location' => 'sometimes|string|max:255',
             'gender' => 'required|in:Male,Female,Other',
             'language' => 'nullable|string', // Adjust based on how you store languages; use 'array' if multiple selections are stored as an array
-            'user_status' => 'required',
             'user_profile' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        
         $user = $request->user();
         $user->fill($validatedData);
 

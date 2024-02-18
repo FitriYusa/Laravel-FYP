@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -47,6 +47,52 @@
             @endif
         </div>
 
+        <!-- Age -->
+        <div>
+            <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
+            <input id="age" name="age" type="number" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('age', $user->age) }}">
+        </div>
+
+        <!-- Gender -->
+       <div>
+            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+            {{-- <input id="gender" name="gender" type="text" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('gender', $user->gender) }}"> --}}
+            <div>
+                <select id="gender" name="gender" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="Male" {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>Male</option>
+                    <option value="Female" {{ old('gender', $user->gender) == 'Female' ? 'selected' : '' }}>Female</option>
+                    <option value="Other" {{ old('gender', $user->gender) == 'Other' ? 'selected' : '' }}>Other</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Location -->
+        <div>
+            <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+            <input id="location" name="location" type="text" class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('location', $user->location) }}">
+        </div>
+
+        <!-- Language -->
+        <div>
+            <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+            <div class="flex">
+                <input id="selectedLanguages" name="language" type="text" readonly class="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ old('language', $user->language) }}">
+                <select id="languageDropdown" class="w-4 mt-1 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="" id="clearLanguages">Clear</option>
+                    <option value="Bahasa Melayu">Bahasa Melayu</option>
+                    <option value="English">English</option>
+                    <option value="Mandarin">Mandarin</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <label for="user_profile" class="block text-sm font-medium text-gray-700">RESUME</label>
+            <input id="user_profile" name="user_profile" type="file" class="mt-1 block w-full">
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
@@ -61,4 +107,29 @@
             @endif
         </div>
     </form>
+</section>
+
+<script>
+    document.getElementById('languageDropdown').addEventListener('change', function() {
+        var selectedOption = this.options[this.selectedIndex].text; // Get the selected option text
+        var inputField = document.getElementById('selectedLanguages');
+        var currentValues = inputField.value.split(', ').filter(function(el) { return el.trim(); }); // Split current input values into an array
+
+        if (!currentValues.includes(selectedOption)) { // Check if the selected language is not already in the input field
+            currentValues.push(selectedOption); // Add the new selection
+            inputField.value = currentValues.join(', '); // Join the array back into a string and set it as the new value of the input field
+        }
+
+        // Optionally, reset the dropdown
+        this.selectedIndex = 0;
+    });
+</script>
+
+<script>
+    document.getElementById('clearLanguages').addEventListener('click', function() {
+        document.getElementById('selectedLanguages').value = ''; // Clear the input field
+    });
+</script>
+
+
 </section>
