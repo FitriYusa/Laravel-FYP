@@ -98,7 +98,7 @@
                   <span class="m-1 ml-0 inline-block text-lime-500">Ad. XD</span>
                   <span class="m-1 ml-0 inline-block text-blue-500">Illustrator</span> --}}
                 </div>
-                <div class="mt-2 text-sm text-gray-700 group-hover:text-gray-100">$ {{$job->salary}}</div>
+                <div class="mt-2 text-sm text-gray-700 group-hover:text-gray-100">RM {{$job->salary}}</div>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-750 group-hover:text-gray-50">{{$job->type}}</span>
