@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\Applicants;
 use App\Models\User;
 use App\Models\jobList;
+use App\Models\Company;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,13 @@ class CompanyController extends Controller
     public function companydashboard() {
 
         $companies = Auth::user();
+        $pendingApplicantsCount = Applicants::where('apply_status', 'pending')->count();
+        $jobApplicationsCount = Applicants::count();
+        $applications = Applicants::all();
+        $joblist = JobList::where('company_id', $companies->id)->get();
+        $jobListCount = $joblist->count();
 
-        return view('company.dashboard',compact('companies'));
+        return view('company.dashboard',compact('companies','pendingApplicantsCount','jobApplicationsCount','applications', 'joblist','jobListCount'));
     }
 
     public function companyprofile() {
@@ -29,10 +35,6 @@ class CompanyController extends Controller
 
     public function companylisting() {
         return view('company/listing');
-    }
-
-    public function companyapplicant() {
-        return view('company/applicant');
     }
 
     public function joblist(Request $request) {
@@ -53,7 +55,7 @@ class CompanyController extends Controller
 
         return view('company.joblist', compact('joblist', 'companies', 'companyId'));
 
-        return view('company.joblist', compact('joblist', 'companies', 'companyId'));
+        //return view('company.joblist', compact('joblist', 'companies', 'companyId'));
     }
 
     public function message()
@@ -79,9 +81,10 @@ class CompanyController extends Controller
     {
         // Find the academy by its ID
         $job = JobList::findOrFail($JobId);
+        $companies = Auth::user();
     
         // Return the view for editing the academy
-        return view('company.edit_job', compact('job'));
+        return view('company.edit_job', compact('job','companies'));
     }
 
     public function updateJob(Request $request, $JobId)
@@ -128,7 +131,8 @@ class CompanyController extends Controller
 
     public function createJob()
     {
-        return view('company.create_job');
+        $companies = Auth::user();
+        return view('company.create_job',compact('companies'));
     }
 
     public function storeJob(Request $request)
@@ -195,8 +199,54 @@ class CompanyController extends Controller
     }
 
 
+    public function companyapplicant() {
 
+        $companies = Auth::user();
 
+        return view('company.applicant', compact('companies'));
+    }
+
+    public function getApplicantsJob(Request $request,$jobId, $companyId)
+    {
+        // Retrieve the job ID and company ID from the request
+        $jobId = $request->query('jobId');
+        $companyId = $request->query('companyId');
+
+        // Retrieve the company by ID
+        $company = Company::find($companyId);
+
+        // Check if the company existsget t
+        if (!$company) {
+            // Handle the case where the company is not found (e.g., redirect back with an error message)
+            return redirect()->back()->with('error', 'Company not found.');
+        }
+
+        // Get applicants for a specific job listed by the company
+        $applicants = $company->getApplicantsForJob($jobId);
+
+        // Pass the variables to the view
+        return view('company.applicant', compact('applicants', 'jobId', 'companyId'));
+    }
+
+    public function showJobApplications()
+    {
+        $companies = Auth::user();
+        $applications = Applicants::all();
+    
+        return view('company.applicant', compact('companies', 'applications'));
+    }
+    
+    public function updateJobApplicationStatus(Request $request, $id)
+    {
+        $companies = Auth::user();
+        $application = Applicants::findOrFail($id);
+        $application->update(['apply_status' => $request->status]);
+    
+        return redirect()->back()
+            ->with('success', 'Application status updated successfully.')
+            ->with('admins', $companies);
+    }
+    
 
 
 

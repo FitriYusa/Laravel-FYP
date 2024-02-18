@@ -9,11 +9,9 @@ class Applicants extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'user_id',
-    //     'job_list_id',
-    //     'apply_status',
-    // ];
+    protected $fillable = [
+        'apply_status',
+    ];
 
     protected $table = 'applicants';
 

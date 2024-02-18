@@ -107,7 +107,7 @@ class JobseekersController extends Controller
         //dd(session()->all());
         // Redirect back with success message
         //return redirect()->back()->with('success', 'Academy application submitted successfully.');
-        return redirect()->route('jobseekers.academy')->with('success', 'Academy application submitted successfully.');
+        return redirect()->route('applied_items')->with('success', 'Academy application submitted successfully.');
 
     }
 
@@ -133,7 +133,7 @@ class JobseekersController extends Controller
         $application->apply_status = 'pending'; // Set initial status
         $application->save();   
 
-        return redirect()->route('jobseekers.findjob')->with('success', 'Job application submitted successfully.');
+        return redirect()->route('applied_items')->with('success', 'Job application submitted successfully.');
 
 
     }

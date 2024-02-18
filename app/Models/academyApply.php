@@ -9,6 +9,9 @@ class academyApply extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'apply_status'
+    ];
     protected $table = 'academy_applies';
 
     public function academy()

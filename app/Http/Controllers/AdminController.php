@@ -7,6 +7,7 @@ use App\Models\Academy;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\jobList;
+use App\Models\academyApply;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +30,9 @@ class AdminController extends Controller
 
         $jobList = jobList::count(); 
 
-        return view('admin.index', compact('admins', 'jobseekers', 'companies', 'jobseekersCount', 'companiesCount','jobList'));
+        $pendingApplicantsCount = academyApply::where('apply_status', 'pending')->count();
+
+        return view('admin.index', compact('admins', 'jobseekers', 'companies', 'jobseekersCount', 'companiesCount','jobList','pendingApplicantsCount'));
 
     }
 
@@ -180,174 +183,102 @@ class AdminController extends Controller
         return redirect()->route('admin.academy',$academy)->with('success', 'Academy added successfully.');
     }
 
-    // public function showNewBookings()
-    // {
-    //     $bookings = Academy::whereIn('academies_id', function ($query) {
-    //             $query->select('id')
-    //                 ->from('academies_list')
-    //                 ->where('admin_id', Auth::id()); // Ensure this matches your authenticated user's ID
-    //         })
-    //         ->whereIn('apply_status', ['pending', 'reject'])
-    //         ->with('company', 'user') // Ensure these relationships are defined in your Booking model
-    //         ->get();
-
-    //     return view('company.newbookings', compact('bookings'));
-    // }
-
-    // public function showBookings()
-    // {
-    //     $bookings = jobList::whereIn('job_id', function ($query) {
-    //             $query->select('id')
-    //                 ->from('properties')
-    //                 ->where('landlord_id', Auth::id()); // Ensure this matches your authenticated user's ID
-    //         })
-    //         ->where('apply_status', 'accept') // Add this line to filter by status
-    //         ->with('company', 'user') // Ensure these relationships are defined in your Booking model
-    //         ->get();
-
-    //     return view('company.bookings', compact('bookings'));
-    // }
-
-
-    public function handleBooking(Request $request, $bookingId)
+    public function showAcademies()
     {
-        // Find the booking record
-        $booking = jobList::findOrFail($bookingId);
+        $admins = Auth::user();
+        $applies = AcademyApply::all();
 
-        // Check if the landlord owns the property associated with this booking
-        if ($booking->property->landlord_id !== Auth::id()) {
-            return redirect()->route('landlordView.index')->with('error', 'Unauthorized action.');
-        }
+        return view('admin.applicant', compact('admins','applies'));
+    }
 
-        // Handle different actions based on the request
-        switch ($request->input('action')) {
-            case 'accept':
-                $booking->booking_status = 'accept';
-                $message = 'Your booking has been accepted.';
-                $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' has been accepted.';
-                break;
-            case 'reject':
-                $booking->booking_status = 'cancel';
-                $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' has been canceled.';
-                break;
-            case 'pending':
-                $booking->booking_status = 'pending';
-                $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' is pending.';
-                break;
-            case 'delete':
-                $booking->delete();
-                break;
-            default:
-                return redirect()->route('company.index')->with('error', 'Invalid action.');
-        }
+    public function updateStatus(Request $request, $id)
+    {
+        $admins = Auth::user();
+        $apply = AcademyApply::findOrFail($id);
+        $apply->update(['apply_status' => $request->status]);
 
-        $booking->save();
-        
-        // Notify the user about the booking status update
-        if (isset($message)) {
-            $booking->user->notify(new BookingNotification($booking, $message));
-        }
+        return redirect()->back()
+        ->with('success', 'Status updated successfully.')
+        ->with('admins', $admins);
+    }
 
-        // return redirect()->route('landlordView.new.bookings')->with('success', 'Booking request updated.');
-        return back()->with('success', 'Booking request updated.');
+    public function Academies()
+    {
+        $admins = Auth::user();
+        $applies = AcademyApply::all();
+
+        return view('admin.applicant', compact('admins','applies'));
     }
 }
 
+ // // public function showNewBookings()
+    // // {
+    // //     $bookings = Academy::whereIn('academies_id', function ($query) {
+    // //             $query->select('id')
+    // //                 ->from('academies_list')
+    // //                 ->where('admin_id', Auth::id()); // Ensure this matches your authenticated user's ID
+    // //         })
+    // //         ->whereIn('apply_status', ['pending', 'reject'])
+    // //         ->with('company', 'user') // Ensure these relationships are defined in your Booking model
+    // //         ->get();
+
+    // //     return view('company.newbookings', compact('bookings'));
+    // // }
+
+    // // public function showBookings()
+    // // {
+    // //     $bookings = jobList::whereIn('job_id', function ($query) {
+    // //             $query->select('id')
+    // //                 ->from('properties')
+    // //                 ->where('landlord_id', Auth::id()); // Ensure this matches your authenticated user's ID
+    // //         })
+    // //         ->where('apply_status', 'accept') // Add this line to filter by status
+    // //         ->with('company', 'user') // Ensure these relationships are defined in your Booking model
+    // //         ->get();
+
+    // //     return view('company.bookings', compact('bookings'));
+    // // }
 
 
-// public function storeAcademy(Request $request )
-// {
-//     $startDate = $request->input('start_date');
-//     $startTime = $request->input('start_time');
-//     $endDate = $request->input('end_date');
-//     $endTime = $request->input('end_time');
-
-//     // Check if the end date or time is earlier than the start date or time
-//     if ($endDate < $startDate || ($endDate == $startDate && $endTime < $startTime)) {
-//         return redirect()->back()->with('warning', 'End date or time cannot be earlier than start date or time.')->withInput();
-//     }
-    
-//     // Validate the form data
-//     $validator = Validator::make($request->all(), [
-//         'title' => 'required|string|max:255',
-//         'description' => 'required|string',
-//         'location' => 'required|string',
-//         'type' => 'required|string',
-//         'start_date' => 'required|date',
-//         'end_date' => 'required|date|after_or_equal:start_date',
-//         'start_time' => 'required|date_format:H:i',
-//         'end_time' => 'required|date_format:H:i|after:start_time',
-//         'is_active' => 'required|boolean',
-//         // 'image' => 'nullable|file|image|mimes:jpeg,png|max:2048',
-//     ]);
-    
-//     // Check if the validation fails
-//     if ($validator->fails()) {
-//         return redirect()->back()
-//             ->withErrors($validator) // Pass validation errors to the view
-//             ->withInput(); // Pass input data back to the form
-//     }
-    
-//     // Retrieve the validated data
-//     $validatedData = $validator->validated();
-    
-//     // Create a new academy
-//     $academy = Academy::create($validatedData);
-    
-//     // Redirect back to the academy list with a success message
-//     return redirect()->route('admin.academy', $academy)->with('success', 'Academy added successfully.');
-// }
-
-
-
-
-
-
-
-    // /**
-    //  * Show the form for creating a new resource.
-    //  */
-    // public function create()
+    // public function handleBooking(Request $request, $bookingId)
     // {
-    //     //
-    // }
+    //     // Find the booking record
+    //     $booking = jobList::findOrFail($bookingId);
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    //     // Check if the landlord owns the property associated with this booking
+    //     if ($booking->property->landlord_id !== Auth::id()) {
+    //         return redirect()->route('landlordView.index')->with('error', 'Unauthorized action.');
+    //     }
 
-    // /**
-    //  * Display the specified resource.
-    //  */
-    // public function show(Admin $admin)
-    // {
-    //     //
-    // }
+    //     // Handle different actions based on the request
+    //     switch ($request->input('action')) {
+    //         case 'accept':
+    //             $booking->booking_status = 'accept';
+    //             $message = 'Your booking has been accepted.';
+    //             $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' has been accepted.';
+    //             break;
+    //         case 'reject':
+    //             $booking->booking_status = 'cancel';
+    //             $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' has been canceled.';
+    //             break;
+    //         case 'pending':
+    //             $booking->booking_status = 'pending';
+    //             $message = 'Your booking for ' . $booking->property->title . ' on ' . $booking->in_date . '-' . $booking->out_date . ' is pending.';
+    //             break;
+    //         case 'delete':
+    //             $booking->delete();
+    //             break;
+    //         default:
+    //             return redirect()->route('company.index')->with('error', 'Invalid action.');
+    //     }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  */
-    // public function edit(Admin $admin)
-    // {
-    //     //
-    // }
+    //     $booking->save();
+        
+    //     // Notify the user about the booking status update
+    //     if (isset($message)) {
+    //         $booking->user->notify(new BookingNotification($booking, $message));
+    //     }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, Admin $admin)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(Admin $admin)
-    // {
-    //     //
+    //     // return redirect()->route('landlordView.new.bookings')->with('success', 'Booking request updated.');
+    //     return back()->with('success', 'Booking request updated.');
     // }

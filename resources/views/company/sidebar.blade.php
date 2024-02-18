@@ -46,9 +46,14 @@
                 <span>Job list</span>
             </a>
             <hr class="sidebar-divider">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{ route('job_applications') }}">
                 <i class="fa-solid fa-user-astronaut"></i>
-                <span>Applicants</span>
+                <span>Edit Applicants</span>
+            </a>
+            <hr class="sidebar-divider">
+            <a class="nav-link" href="{{ url('chat') }}">
+                <i class="fas fa-comments"></i>
+                <span>Message</span>
             </a>
         </li>
 

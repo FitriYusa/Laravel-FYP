@@ -81,7 +81,11 @@ Route::middleware(['auth', 'company'])->group(function () {
     Route::post('/job', [CompanyController::class, 'storeJob'])->name('job.store');
 
     //Applicants
-    Route::get('/applicant', [CompanyController::class, 'companyapplicant']);
+    // Route::get('/applicant', [CompanyController::class, 'companyapplicant'])->name('applicants');
+    // Route::get('/applicants/{jobId}/{companyId}', [CompanyController::class, 'getApplicantsJob'])->name('applicants.show');
+
+    Route::get('/jobapplications', [CompanyController::class, 'showJobApplications'])->name('job_applications');
+    Route::put('/job/application/{id}/status', [CompanyController::class, 'updateJobApplicationStatus'])->name('updateJobApplyStatus');
 
     
 });
@@ -104,6 +108,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/academies/{AcademyId}', [AdminController::class, 'deleteAcademy'])->name('academy.delete');
     Route::get('/academies/create', [AdminController::class, 'createAcademy'])->name('academy.create');
     Route::post('/academies', [AdminController::class, 'storeAcademy'])->name('academy.store');
+
+    Route::get('/academiess', [AdminController::class, 'showAcademies'])->name('academies.apply');
+    Route::put('/apply/{id}/status', [AdminController::class, 'updateStatus'])->name('updateStatus');
+    //Route::get('/academiess', [AdminController::class, 'Academies'])->name('academies.apply');
 
     //Message
     Route::get('/message', [AdminController::class, 'message'])->name('admin.message');

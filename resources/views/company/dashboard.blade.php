@@ -53,6 +53,29 @@
         
                 <!-- Content Row -->
                 <div class="row">
+                    <!-- Companies Example -->
+                    <div class="col-xl-3 col-md-6 mb-4" >
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            No. of Applicant
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$jobApplicationsCount}}</div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-auto">
+                                        <i class="fas fa-address-book fa-2x text-gray-300"></i>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Registered Jobseekers Card -->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
@@ -60,9 +83,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            ###
+                                            No. of Pending Applicants
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{$pendingApplicantsCount}}</div>
                                     </div>
                                     <!--icon -->
                                     <div class="col-auto">
@@ -80,9 +103,9 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            ###
+                                            No. of jobs
                                         </div>
-                                         <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                         <div class="h5 mb-0 font-weight-bold text-gray-800">{{$jobListCount}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -92,32 +115,46 @@
                         </div>
                     </div>
 
-                    <!-- Companies Example -->
-                    <div class="col-xl-3 col-md-6 mb-4" >
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            ###
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-auto">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                    <div class="col-auto">
-                                        <i class="fas fa-address-book fa-2x text-gray-300"></i>
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                        
+                    
                 </div>     
                 <!-- /.container-fluid -->
                 <!-- End of Main Content -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800"></h1>
+                </div>
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Pending Applicants</h6>
+                  </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                              <th>Applicant Name</th>
+                              <th>Applicant Email</th>
+                              <th>Job Title</th>
+                              <th>Status</th>
+                              <!-- Add more table headers as needed -->
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($applications as $apply)
+                             @if ($apply->apply_status == 'pending')
+                              <tr>
+                                  <td>{{ $apply->user->name }}</td> <!-- Access the name via the user relationship -->
+                                  <td>{{ $apply->user->email }}</td> <!-- Access the email via the user relationship -->
+                                  <td>{{ $apply->job->title }}</td> <!-- Access the title via the academy relationship -->
+                                  <td>{{ $apply->apply_status }}</td>
+                                  <!-- Add more table cells for other attributes -->
+                              </tr>
+                            @endif
+                          @endforeach
+                      </tbody>
+                      </table>
+                    </div>
+                </div>
+                </div>
         
                 <!-- Footer -->
                 @include('layouts.footer')

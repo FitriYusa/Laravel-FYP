@@ -23,4 +23,9 @@ class Company extends Model
     {
         return $this->hasOne(User::class)->where('user_type', 'company');
     }
+
+    public function getApplicantsForJob($jobId)
+    {
+        return jobList::findOrFail($jobId)->applicants()->with('user')->get();
+    }
 }
