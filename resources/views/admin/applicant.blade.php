@@ -58,6 +58,7 @@
                                             <th>Apply ID</th>
                                             <th>Applicant Name</th>
                                             <th>Applicant Email</th>
+                                            <th>Applicant Resume</th>
                                             <th>Academy Title</th>
                                             <th>Status</th>
                                             <!-- Add more table headers as needed -->
@@ -69,6 +70,7 @@
                                                 <td>{{ $apply->id }}</td>
                                                 <td>{{ $apply->user->name }}</td> <!-- Access the name via the user relationship -->
                                                 <td>{{ $apply->user->email }}</td> <!-- Access the email via the user relationship -->
+                                                <td><a href="{{ asset($apply->user->user_profile) }}" target="_blank">Resume</a></td>
                                                 <td>{{ $apply->academy->title }}</td> <!-- Access the title via the academy relationship -->
                                                 
                                                 <td>

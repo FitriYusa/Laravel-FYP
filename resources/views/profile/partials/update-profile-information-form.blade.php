@@ -88,9 +88,29 @@
             </div>
         </div>
 
-        <div>
+        {{-- <div>
             <label for="user_profile" class="block text-sm font-medium text-gray-700">RESUME</label>
             <input id="user_profile" name="user_profile" type="file" class="mt-1 block w-full">
+        </div> --}}
+
+        <div class="right">
+            <div id="user_profile_preview">
+                @if ($user->user_profile)
+                    <label class="block text-sm font-medium text-gray-700">Current Resume:</label>
+
+                    <!-- MAHU BAGAIMANA CARANYA-->
+                    <iframe src="{{ asset($user->user_profile) }}" class="mt-1 h-64 w-full" frameborder="0"></iframe>
+                    <a href="{{ asset($user->user_profile) }}" class="mt-1 h-64 w-full">{{ basename($user->user_profile) }}</a>
+                @endif
+            </div>
+
+            <div>
+                <label for="user_profile" class="block text-sm font-medium text-gray-700"></label>
+                <input id="user_profile" name="user_profile" type="file" class="mt-1 block w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('user_profile') border-red-500 @enderror">
+                @error('user_profile')
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
         </div>
 
         <div class="flex items-center gap-4">
