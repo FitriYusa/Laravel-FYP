@@ -95,12 +95,14 @@
 
         <div class="right">
             <div id="user_profile_preview">
+                <label class="block text-sm font-medium text-gray-700">Resume:</label>
                 @if ($user->user_profile)
                     <label class="block text-sm font-medium text-gray-700">Current Resume:</label>
 
                     <!-- MAHU BAGAIMANA CARANYA-->
                     <iframe src="{{ asset($user->user_profile) }}" class="mt-1 h-64 w-full" frameborder="0"></iframe>
                     <a href="{{ asset($user->user_profile) }}" class="mt-1 h-64 w-full">{{ basename($user->user_profile) }}</a>
+                    <!-- MAHU BAGAIMANA CARANYA-->
                 @endif
             </div>
 
