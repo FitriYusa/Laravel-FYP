@@ -96,6 +96,7 @@
                   <table class="min-w-full leading-normal">
                     <thead>
                       <tr>
+                        <th class="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Company</th>
                         <th class="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Applied Jobs</th>
                         <th class="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-600">Status</th>
                       </tr>
@@ -103,6 +104,9 @@
                     @forelse($appliedJobs as $appliedJob)
                         <tbody>
                         <tr>
+                            <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
+                            <p class="whitespace-no-wrap text-gray-900">{{ $appliedJob->job->company->name }}</p>
+                            </td>
                             <td class="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                             <p class="whitespace-no-wrap text-gray-900">{{ $appliedJob->job->title }}</p>
                             </td>
@@ -146,4 +150,4 @@
         <pre>
             Applied Academies: {{ $appliedAcademies }}
             Applied Jobs: {{ $appliedJobs }}
-        </pre> --}}
+        </pre>  --}}
