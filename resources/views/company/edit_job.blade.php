@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>Company Dashboard</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-  <!-- Custom styles for table -->
-  <link href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-
-  <script src="https://kit.fontawesome.com/6d016c170f.js" crossorigin="anonymous"></script>
-</head>
+@extends('layouts.pagelayout')
 
 <body id="page-top">
   <!-- Page Wrapper -->
@@ -43,50 +23,94 @@
                 <div class="container-fluid">
         
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Edit Job</h1>
-                            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                <i class="fas fa-download fa-sm text-white-50"></i>
-                                Generate Report
-                            </a> --}}
-                    </div>
+                    <div class="max-w-md mx-auto p-8 bg-white rounded-md shadow-md">
+                        <h2 class="text-2xl font-semibold mb-6">Edit Job</h2>
             
                     <!-- Content Row -->
                     <div class="row">
                         <form action="{{ route('job.update', ['JobId' => $job->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <label for="title">Title:</label><br>
-                            <input type="text" id="title" name="title" value="{{ $job->title }}"required><br>
-                            
-                            <label for="description">Description:</label><br>
-                            <textarea id="description" name="description"required>{{ $job->description }}</textarea><br>
+
+                            <!-- Title -->
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+                                <input type="text" id="title" name="title" value="{{ $job->title }}" required
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                              </div>
                     
-                            <label for="location">Location:</label><br>
-                            <input type="text" id="location" name="location" value="{{ $job->location }}"><br>
+                            <!-- Description -->
+                            <div class="mb-6">
+                                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                                <textarea id="description" name="description" required
+                                    class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">{{ $job->description }}</textarea>
+                            </div>
                     
-                            <label for="type">Type:</label><br>
-                            <input type="text" id="type" name="type" value="{{ $job->type }}"><br>
+                            <!-- Image -->
+                            {{-- <label for="image">Image:</label>
+                            <input type="file" id="image" name="image" value="{{ old('image') }}"><br>       --}}
                     
-                            <label for="start_date">Start Date:</label><br>
-                            <input type="date" id="start_date" name="start_date" value="{{ $job->start_date }}"><br>
+                            <!-- Location -->
+                            <div class="mb-4">
+                                <label for="location" class="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                                <input type="text" id="location" name="location" value="{{ $job->location }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                              </div>
                     
-                            <label for="end_date">End Date:</label><br>
-                            <input type="date" id="end_date" name="end_date" value="{{ $job->end_date }}"><br>
+                            <!-- Type -->
+                            <div class="mb-4">
+                                <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Type:</label>
+                                <input type="text" id="type" name="type" value="{{ $job->type }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                            </div>
                     
-                            <label for="start_time">Start Time:</label><br>
-                            <input type="time" id="start_time" name="start_time" value="{{ $job->start_time }}"><br>
+                            <div class="mb-4">
+                                <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Salary:</label>
+                                <input type="text" id="type" name="type" value="{{ $job->salary }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                            </div>
                     
-                            <label for="end_time">End Time:</label><br>
-                            <input type="time" id="end_time" name="end_time" value="{{ $job->end_time }}"><br>
+                            <!-- Start Date -->
+                            <div class="mb-4">
+                                <label for="start_date" class="block text-gray-700 text-sm font-bold mb-2">Start Date:</label>
+                                <input type="date" id="start_date" name="start_date" value="{{ $job->start_date }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                              </div>
                     
-                            <label for="is_active">Status:</label><br>
-                            <select id="is_active" name="is_active">
-                                <option value="1" {{ $job->is_active ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ !$job->is_active ? 'selected' : '' }}>Inactive</option>
-                            </select><br><br>
+                            <!-- End Date -->
+                            <div class="mb-4">
+                                <label for="end_date" class="block text-gray-700 text-sm font-bold mb-2">End Date:</label>
+                                <input type="date" id="end_date" name="end_date" value="{{ $job->end_date }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                              </div>
                     
-                            <button type="submit">Update Job</button>
+                            <!-- Start Time -->
+                            <div class="mb-4">
+                                <label for="start_time" class="block text-gray-700 text-sm font-bold mb-2">Start Time:</label>
+                                <input type="time" id="start_time" name="start_time" value="{{ $job->start_time }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                              </div>
+                    
+                            <!-- End Time -->
+                            <div class="mb-4">
+                                <label for="end_time" class="block text-gray-700 text-sm font-bold mb-2">End Time:</label>
+                                <input type="time" id="end_time" name="end_time" value="{{ $job->end_time }}"
+                                  class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                              </div>
+                    
+                            <!-- Status -->
+                            <div class="mb-4">
+                                <label for="is_active" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
+                                <select id="is_active" name="is_active" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                                    <option value="1" {{ $job->is_active ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ !$job->is_active ? 'selected' : '' }}>Inactive</option>
+                                </select><br><br>
+                              </div>
+                    
+                              <button type="submit"
+                              class="bg-violet-500 border-solid border-2 border-black text-black px-4 py-2 rounded-md hover:bg-violet-500 hover:text-white focus:outline-none focus:shadow-outline-blue">
+                              Add Job
+                            </button>
                         </form>
                         @if (session('warning'))
                             <script>
@@ -117,22 +141,6 @@
     <i class="fas fa-angle-up"></i>
   </a>
   
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script> 
-
-    <!-- Core plugin JavaScript-->
-    <script src="{{asset('admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{asset('admin/js/sb-admin-2.min.js')}}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{asset('admin/vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('admin/vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{asset('admin/js/demo/datatables-demo.js')}}"></script>
 
 </body>
 </html>

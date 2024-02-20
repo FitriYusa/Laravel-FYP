@@ -77,7 +77,6 @@
         <div class="container mx-auto">
             <div class="group bg-gray-100 p-4 pl-10 transition-all duration-300 hover:bg-cyan-900 hover:border-none lg:p-8 rounded-3xl border-solid border-2 border-gray-600 shadow-2xl">
               <div class="flex items-center gap-x-2">
-                <img class="aspect-[2/2] w-16" src="https://img.icons8.com/fluency/48/null/mac-os.png" />
                 <div>
                     @if($job->company)
                     <h3 class="text-xl font-bold text-neutral-950 group-hover:text-gray-50">{{ optional($job->company)->name }}</h3>

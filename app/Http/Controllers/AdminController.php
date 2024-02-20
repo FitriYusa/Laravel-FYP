@@ -89,9 +89,10 @@ class AdminController extends Controller
     {
         // Find the academy by its ID
         $academy = Academy::findOrFail($AcademyId);
+        $admins = Auth::user();
     
         // Return the view for editing the academy
-        return view('admin.edit_academy', compact('academy'));
+        return view('admin.edit_academy', compact('academy','admins'));
     }
 
     public function updateAcademy(Request $request, $AcademyId)
@@ -138,7 +139,8 @@ class AdminController extends Controller
 
     public function createAcademy()
     {
-        return view('admin.create_academy');
+        $admins = Auth::user();
+        return view('admin.create_academy',compact('admins'));
     }
   
     public function storeAcademy(Request $request )
